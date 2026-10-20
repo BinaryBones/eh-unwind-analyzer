@@ -1,0 +1,23 @@
+03_static_unwind_oob_parse_fail.exe
+
+Категория: static
+Путь: бинарники/static/03_static_unwind_oob_parse_fail.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+UnwindInfoRVA указывает за пределы образа.
+
+Какой этап проекта демонстрирует:
+RUNTIME_FUNCTION -> UNWIND_INFO
+
+Какие признаки/сигналы ожидались:
+unwind_rva_oob + unwind_parse_fail
+
+Что фактически поймал последний статический прогон:
+unwind_rva_oob;unwind_parse_fail
+
+Score / verdict последнего статического прогона:
+50 / moderate_suspicion
+
+Как объяснять на защите:
+Показывает связь ошибки адреса metadata с невозможностью разобрать UNWIND_INFO.

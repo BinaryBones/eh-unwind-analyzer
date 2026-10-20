@@ -1,0 +1,82 @@
+.DS_Store
+._*
+*.plist
+*.dSYM/
+.vs/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+
+/build/
+/dist/
+/tmp/
+/Testing/
+/install_manifest.txt
+/compile_commands.json
+
+*.o
+*.obj
+*.a
+*.lib
+*.pdb
+*.ilk
+*.exe
+!tests/samples/bin/*.exe
+# These PE files are intentional regression fixtures, not build outputs.
+!/бинарники на тестирование/бинарники/**/*.exe
+*.dll
+*.pyd
+*.so
+*.dylib
+
+/tests/unit/unit_unwind
+/tests/unit/unit_heuristics
+/tests/unit/unit_heuristics_mitigations
+/tests/unit/unit_heuristics_context
+/tests/unit/unit_heuristics_combos
+/tests/unit/unit_core_edges
+/tests/unit/unit_report_json
+/tests/unit/unit_report_html
+/tests/unit/unit_matrix_report
+/tests/unit/*_test_output.json
+/tests/unit/*_test_output.html
+
+/tests/*_dynamic_report.json
+/tests/*_dynamic_console.txt
+
+/real_samples/downloads/
+/real_samples/inbox/
+/real_samples/reports/
+/real_samples/sources/
+
+/artifacts/
+/release-output/
+
+# Local environments, editor caches, and private configuration.
+.venv/
+venv/
+.idea/
+.cache/
+.mypy_cache/
+.ruff_cache/
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*.tmp
+*.bak
+*.backup_*
+.env
+.env.*
+!.env.example
+CMakeUserPresets.json
+
+# Historical validation outputs stay available locally.
+/reports/
+/бинарники на тестирование/reports_static_extended/
+/бинарники на тестирование/reports_showcase_html/
+/бинарники на тестирование/reports_input_validation/
+
+# Separate study projects; preserve locally, exclude from this repository.
+/docs/ru/пэт/
+/docs/ru/beauty_crm_reference_source/

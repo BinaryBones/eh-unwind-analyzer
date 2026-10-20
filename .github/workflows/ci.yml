@@ -1,0 +1,156 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  posix:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Ubuntu Release
+            os: ubuntu-24.04
+            preset: release
+          - name: Ubuntu ASan UBSan
+            os: ubuntu-24.04
+            preset: sanitize
+          - name: Ubuntu Coverage
+            os: ubuntu-24.04
+            preset: coverage
+          - name: macOS Release
+            os: macos-15
+            preset: release
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install test dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
+      - name: Configure
+        run: cmake --preset "${{ matrix.preset }}"
+      - name: Build
+        run: cmake --build --preset "${{ matrix.preset }}" --parallel
+      - name: Test
+        run: ctest --preset "${{ matrix.preset }}"
+      - name: Generate coverage report
+        if: matrix.preset == 'coverage'
+        run: >
+          python -m gcovr
+          --root .
+          --filter 'src/'
+          --exclude 'src/dynamic_win.c'
+          --html-details build/coverage/coverage.html
+          --xml build/coverage/coverage.xml
+          --print-summary
+      - name: Upload coverage
+        if: matrix.preset == 'coverage'
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-report
+          path: |
+            build/coverage/coverage.html
+            build/coverage/coverage.*.html
+            build/coverage/coverage.xml
+
+  windows-msvc:
+    name: Windows MSVC and Dynamic Smoke
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install test dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
+      - name: Configure MSVC
+        run: >
+          cmake -S . -B build/msvc
+          -G "Visual Studio 17 2022" -A x64
+          -DBUILD_TESTING=ON
+          -DEHUA_WARNINGS_AS_ERRORS=ON
+      - name: Build MSVC
+        run: cmake --build build/msvc --config Release --parallel
+      - name: Test MSVC
+        run: ctest --test-dir build/msvc -C Release --output-on-failure
+      - name: Build dynamic smoke targets
+        working-directory: tests
+        shell: cmd
+        run: build_tests_msvc.bat
+      - name: Run and validate dynamic smoke
+        shell: cmd
+        run: tests\run_dynamic_smoke_windows.bat build\msvc\Release\eh_unwind_analyzer.exe
+      - name: Package
+        run: cpack --config build/msvc/CPackConfig.cmake -C Release -G ZIP
+      - name: Upload Windows evidence
+        uses: actions/upload-artifact@v7
+        with:
+          name: windows-msvc-release-and-dynamic-evidence
+          if-no-files-found: error
+          path: |
+            *.zip
+            tests/*_dynamic_report.json
+            tests/*_dynamic_console.txt
+
+  windows-mingw:
+    name: Windows MinGW UCRT64
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-python
+      - name: Install test dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
+      - name: Configure MinGW
+        run: >
+          cmake -S . -B build/mingw -G Ninja
+          -DCMAKE_BUILD_TYPE=Release
+          -DBUILD_TESTING=ON
+          -DEHUA_WARNINGS_AS_ERRORS=ON
+      - name: Build MinGW
+        run: cmake --build build/mingw --parallel
+      - name: Test MinGW
+        run: ctest --test-dir build/mingw --output-on-failure
+
+  libfuzzer:
+    name: Linux Clang libFuzzer
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Configure fuzz harness
+        run: >
+          cmake -S . -B build/fuzz -G Ninja
+          -DCMAKE_BUILD_TYPE=RelWithDebInfo
+          -DCMAKE_C_COMPILER=clang
+          -DBUILD_TESTING=OFF
+          -DEHUA_BUILD_FUZZER=ON
+      - name: Build fuzz harness
+        run: cmake --build build/fuzz --target ehua_parser_fuzzer --parallel
+      - name: Prepare seed corpus
+        run: |
+          mkdir -p build/fuzz-corpus
+          cp tests/samples/bin/*.exe build/fuzz-corpus/
+      - name: Run bounded fuzz campaign
+        run: >
+          build/fuzz/ehua_parser_fuzzer
+          -runs=2000
+          -max_len=131072
+          -timeout=5
+          build/fuzz-corpus

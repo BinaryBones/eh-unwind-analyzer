@@ -1,0 +1,23 @@
+34_static_rf_end_equal_begin.exe
+
+Категория: static
+Путь: бинарники/static/34_static_rf_end_equal_begin.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+EndAddress равен BeginAddress.
+
+Какой этап проекта демонстрирует:
+RUNTIME_FUNCTION
+
+Какие признаки/сигналы ожидались:
+invalid_ranges
+
+Что фактически поймал последний статический прогон:
+invalid_ranges
+
+Score / verdict последнего статического прогона:
+20 / low_suspicion
+
+Как объяснять на защите:
+Нулевой диапазон функции.

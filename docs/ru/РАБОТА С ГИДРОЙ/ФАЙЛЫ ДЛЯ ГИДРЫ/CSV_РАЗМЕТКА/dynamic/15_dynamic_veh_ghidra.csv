@@ -1,0 +1,47 @@
+begin_rva,end_rva,name,comment
+0x00001000,0x00001001,sub_00001000,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001010,0x00001149,sub_00001010,UNWIND v1 flags=0 prolog=4 stack=40B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001150,0x000011A3,sub_00001150,UNWIND v1 flags=0 prolog=4 stack=72B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x000011B0,0x000013EA,sub_000011B0,"UNWIND v1 flags=0 prolog=10 stack=72B frame=-+0 saved_gp=[RBX,RBP,RSI,RDI,R12] saved_xmm=[-]"
+0x000013F0,0x0000140D,sub_000013F0,UNWIND v1 flags=EHANDLER prolog=4 stack=40B frame=-+0 saved_gp=[-] saved_xmm=[-] handler_rva=0x000027e0
+0x00001410,0x0000142D,sub_00001410,UNWIND v1 flags=EHANDLER prolog=4 stack=40B frame=-+0 saved_gp=[-] saved_xmm=[-] handler_rva=0x000027e0
+0x00001430,0x00001435,sub_00001430,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001440,0x0000144C,sub_00001440,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001450,0x00001451,sub_00001450,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001460,0x000014B8,sub_00001460,UNWIND v1 flags=0 prolog=5 stack=40B frame=-+0 saved_gp=[RBX] saved_xmm=[-]
+0x000014C0,0x00001502,sub_000014C0,UNWIND v1 flags=0 prolog=4 stack=40B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001510,0x00001582,sub_00001510,"UNWIND v1 flags=0 prolog=6 stack=56B frame=-+0 saved_gp=[RBX,RSI] saved_xmm=[-]"
+0x00001590,0x000015AF,sub_00001590,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x000015B0,0x000015B3,sub_000015B0,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x000015C0,0x000015D5,sub_000015C0,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x000015E0,0x0000165B,sub_000015E0,"UNWIND v1 flags=0 prolog=6 stack=56B frame=-+0 saved_gp=[RBX,RSI] saved_xmm=[-]"
+0x00001660,0x00001663,sub_00001660,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001670,0x00001768,sub_00001670,"UNWIND v1 flags=0 prolog=22 stack=136B frame=-+0 saved_gp=[RBX,RSI] saved_xmm=[XMM6,XMM7,XMM8]"
+0x00001770,0x00001773,sub_00001770,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001780,0x000017E9,sub_00001780,"UNWIND v1 flags=0 prolog=6 stack=72B frame=-+0 saved_gp=[RBX,RSI] saved_xmm=[-]"
+0x000017F0,0x00001952,sub_000017F0,"UNWIND v1 flags=0 prolog=7 stack=104B frame=-+0 saved_gp=[RBX,RSI,RDI] saved_xmm=[-]"
+0x00001960,0x00001CC3,sub_00001960,"UNWIND v1 flags=0 prolog=21 stack=136B frame=RBP+64 saved_gp=[RBX,RBP,RSI,RDI,R12,R13,R14,R15] saved_xmm=[-]"
+0x00001CD0,0x00001D0E,sub_00001CD0,UNWIND v1 flags=0 prolog=4 stack=88B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001D10,0x00001D1C,sub_00001D10,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001D20,0x00001EDD,sub_00001D20,UNWIND v1 flags=0 prolog=5 stack=40B frame=-+0 saved_gp=[RBX] saved_xmm=[-]
+0x00001EE0,0x00001F58,sub_00001EE0,"UNWIND v1 flags=0 prolog=10 stack=72B frame=-+0 saved_gp=[RBX,RBP,RSI,RDI,R12] saved_xmm=[-]"
+0x00001F60,0x00001FCF,sub_00001F60,"UNWIND v1 flags=0 prolog=7 stack=56B frame=-+0 saved_gp=[RBX,RSI,RDI] saved_xmm=[-]"
+0x00001FD0,0x00002061,sub_00001FD0,"UNWIND v1 flags=0 prolog=6 stack=56B frame=-+0 saved_gp=[RBX,RSI] saved_xmm=[-]"
+0x00002070,0x00002172,sub_00002070,UNWIND v1 flags=0 prolog=5 stack=40B frame=-+0 saved_gp=[RBX] saved_xmm=[-]
+0x00002180,0x000021AC,sub_00002180,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x000021B0,0x00002200,sub_000021B0,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00002200,0x0000229D,sub_00002200,"UNWIND v1 flags=0 prolog=7 stack=56B frame=-+0 saved_gp=[RBX,RSI,RDI] saved_xmm=[-]"
+0x000022A0,0x00002320,sub_000022A0,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00002320,0x00002357,sub_00002320,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00002360,0x000023DB,sub_00002360,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x000023E0,0x00002416,sub_000023E0,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00002420,0x000024A9,sub_00002420,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x000024B0,0x00002576,sub_000024B0,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x000025C0,0x000025E1,sub_000025C0,UNWIND v1 flags=0 prolog=4 stack=56B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x000025F0,0x0000263B,sub_000025F0,"UNWIND v1 flags=0 prolog=6 stack=88B frame=-+0 saved_gp=[RBX,RSI] saved_xmm=[-]"
+0x00002640,0x00002675,sub_00002640,UNWIND v1 flags=0 prolog=4 stack=72B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00002680,0x0000268B,sub_00002680,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00002690,0x000026BE,sub_00002690,UNWIND v1 flags=0 prolog=5 stack=40B frame=-+0 saved_gp=[RBX] saved_xmm=[-]
+0x000026C0,0x0000271F,sub_000026C0,"UNWIND v1 flags=0 prolog=8 stack=72B frame=-+0 saved_gp=[RBX,RBP,RSI,RDI] saved_xmm=[-]"
+0x000028A0,0x00002913,sub_000028A0,UNWIND v1 flags=0 prolog=5 stack=40B frame=-+0 saved_gp=[RBX] saved_xmm=[-]
+0x00002920,0x00002925,sub_00002920,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]

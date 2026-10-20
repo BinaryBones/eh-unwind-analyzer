@@ -1,0 +1,23 @@
+75_mixed_plain_no_static_clean.exe
+
+Категория: mixed
+Путь: бинарники/mixed/75_mixed_plain_no_static_clean.exe
+Режим проверки: static + optional Windows dynamic
+
+Что специально сделано с бинарником:
+Обычная dynamic-capable программа без static EH/unwind аномалии.
+
+Какой этап проекта демонстрирует:
+Mixed negative control
+
+Какие признаки/сигналы ожидались:
+baseline clean dynamic-capable
+
+Что фактически поймал последний статический прогон:
+нет finding-кодов
+
+Score / verdict последнего статического прогона:
+0 / no_strong_static_anomalies
+
+Как объяснять на защите:
+Показывает, что mixed-категория не означает автоматическую тревогу.

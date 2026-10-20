@@ -1,0 +1,23 @@
+67_dynamic_veh_register_remove.exe
+
+Категория: dynamic
+Путь: бинарники/dynamic/67_dynamic_veh_register_remove.exe
+Режим проверки: dynamic --timeout-ms
+
+Что специально сделано с бинарником:
+VEH регистрируется и удаляется без исключения.
+
+Какой этап проекта демонстрирует:
+Dynamic validation
+
+Какие признаки/сигналы ожидались:
+veh_registration without hit
+
+Что фактически поймал последний статический прогон:
+нет finding-кодов
+
+Score / verdict последнего статического прогона:
+0 / no_strong_static_anomalies
+
+Как объяснять на защите:
+Отделяет факт регистрации от факта hit.

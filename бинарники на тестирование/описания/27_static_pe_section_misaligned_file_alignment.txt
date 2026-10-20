@@ -1,0 +1,23 @@
+27_static_pe_section_misaligned_file_alignment.exe
+
+Категория: static
+Путь: бинарники/static/27_static_pe_section_misaligned_file_alignment.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+FileAlignment выставлен в некорректное значение.
+
+Какой этап проекта демонстрирует:
+PE optional header
+
+Какие признаки/сигналы ожидались:
+pe_section_misaligned
+
+Что фактически поймал последний статический прогон:
+pe_section_misaligned
+
+Score / verdict последнего статического прогона:
+8 / no_strong_static_anomalies
+
+Как объяснять на защите:
+Показывает проверку alignment-правил PE.

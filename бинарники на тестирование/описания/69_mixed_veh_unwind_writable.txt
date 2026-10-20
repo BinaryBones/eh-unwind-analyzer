@@ -1,0 +1,23 @@
+69_mixed_veh_unwind_writable.exe
+
+Категория: mixed
+Путь: бинарники/mixed/69_mixed_veh_unwind_writable.exe
+Режим проверки: static + Windows dynamic
+
+Что специально сделано с бинарником:
+VEH-сэмпл с writable .xdata.
+
+Какой этап проекта демонстрирует:
+Mixed validation
+
+Какие признаки/сигналы ожидались:
+unwind_writable_section + VEH runtime
+
+Что фактически поймал последний статический прогон:
+unwind_writable_section
+
+Score / verdict последнего статического прогона:
+18 / low_suspicion
+
+Как объяснять на защите:
+Связка static placement + dynamic VEH.

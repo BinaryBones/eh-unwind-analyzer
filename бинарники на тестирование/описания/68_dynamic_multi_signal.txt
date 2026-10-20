@@ -1,0 +1,23 @@
+68_dynamic_multi_signal.exe
+
+Категория: dynamic
+Путь: бинарники/dynamic/68_dynamic_multi_signal.exe
+Режим проверки: dynamic --timeout-ms
+
+Что специально сделано с бинарником:
+Один сэмпл вызывает несколько dynamic-сигналов.
+
+Какой этап проекта демонстрирует:
+Dynamic validation
+
+Какие признаки/сигналы ожидались:
+VEH + VCH + UEF + RtlAddFunctionTable registrations
+
+Что фактически поймал последний статический прогон:
+нет finding-кодов
+
+Score / verdict последнего статического прогона:
+0 / no_strong_static_anomalies
+
+Как объяснять на защите:
+Компактный runtime smoke для презентации.

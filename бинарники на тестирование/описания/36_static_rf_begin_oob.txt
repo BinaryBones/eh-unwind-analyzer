@@ -1,0 +1,23 @@
+36_static_rf_begin_oob.exe
+
+Категория: static
+Путь: бинарники/static/36_static_rf_begin_oob.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+Begin/End вынесены за SizeOfImage.
+
+Какой этап проекта демонстрирует:
+RUNTIME_FUNCTION
+
+Какие признаки/сигналы ожидались:
+rf_oob
+
+Что фактически поймал последний статический прогон:
+rf_oob;rf_unsorted
+
+Score / verdict последнего статического прогона:
+40 / moderate_suspicion
+
+Как объяснять на защите:
+Адрес функции вне образа.

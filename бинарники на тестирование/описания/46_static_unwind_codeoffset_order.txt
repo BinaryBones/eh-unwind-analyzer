@@ -1,0 +1,23 @@
+46_static_unwind_codeoffset_order.exe
+
+Категория: static
+Путь: бинарники/static/46_static_unwind_codeoffset_order.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+CodeOffset идет в неправильном порядке.
+
+Какой этап проекта демонстрирует:
+UNWIND_INFO
+
+Какие признаки/сигналы ожидались:
+unwind_anomalies
+
+Что фактически поймал последний статический прогон:
+unwind_anomalies
+
+Score / verdict последнего статического прогона:
+20 / low_suspicion
+
+Как объяснять на защите:
+Проверка порядка unwind-кодов.

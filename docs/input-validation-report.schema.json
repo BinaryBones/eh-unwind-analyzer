@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ehua:input-validation-report-schema:1.3.0",
+  "title": "EH/Unwind Analyzer PE input-validation report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["report_type", "input", "report_metadata", "input_validation"],
+  "properties": {
+    "report_type": {"const": "pe_input_validation"},
+    "input": {"type": "string"},
+    "report_metadata": {"$ref": "#/$defs/report_metadata"},
+    "input_validation": {"$ref": "#/$defs/input_validation"}
+  },
+  "$defs": {
+    "report_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "tool_version", "generated_at_utc", "input_sha256",
+        "input_size", "command_line", "build_compiler", "build_platform",
+        "build_mode", "strict_abi", "follow_chain", "max_chain_depth"
+      ],
+      "properties": {
+        "schema_version": {"const": "1.3.0"},
+        "tool_version": {"type": "string", "minLength": 1},
+        "generated_at_utc": {"type": "string", "format": "date-time"},
+        "input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "input_size": {"type": "integer", "minimum": 0},
+        "command_line": {"type": "string"},
+        "build_compiler": {"type": "string", "minLength": 1},
+        "build_platform": {"type": "string", "minLength": 1},
+        "build_mode": {"enum": ["debug", "release"]},
+        "strict_abi": {"type": "boolean"},
+        "follow_chain": {"type": "boolean"},
+        "max_chain_depth": {"type": "integer", "minimum": 1, "maximum": 16}
+      }
+    },
+    "input_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accepted", "passed_count", "failed_count", "not_evaluated_count",
+        "parser_diagnostic", "checks"
+      ],
+      "properties": {
+        "accepted": {"const": false},
+        "passed_count": {"type": "integer", "minimum": 0},
+        "failed_count": {"type": "integer", "minimum": 1},
+        "not_evaluated_count": {"type": "integer", "minimum": 0},
+        "parser_diagnostic": {"type": "string", "minLength": 1},
+        "checks": {
+          "type": "array",
+          "minItems": 17,
+          "maxItems": 17,
+          "items": {"$ref": "#/$defs/check"}
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code", "title_ru", "status", "file_offset", "byte_length",
+        "observed_value", "requirement_ru", "detail"
+      ],
+      "properties": {
+        "code": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "title_ru": {"type": "string", "minLength": 1},
+        "status": {"enum": ["passed", "failed", "not_evaluated"]},
+        "file_offset": {"type": ["integer", "null"], "minimum": 0},
+        "byte_length": {"type": ["integer", "null"], "minimum": 0},
+        "observed_value": {
+          "anyOf": [
+            {"type": "null"},
+            {"type": "string", "pattern": "^0x[0-9a-f]+$"}
+          ]
+        },
+        "requirement_ru": {"type": "string", "minLength": 1},
+        "detail": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

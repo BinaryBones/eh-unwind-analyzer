@@ -1,0 +1,23 @@
+54_static_unwind_in_exec_only.exe
+
+Категория: static
+Путь: бинарники/static/54_static_unwind_in_exec_only.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+Секция .xdata помечена executable.
+
+Какой этап проекта демонстрирует:
+Metadata permissions
+
+Какие признаки/сигналы ожидались:
+unwind_in_exec_section
+
+Что фактически поймал последний статический прогон:
+unwind_in_exec_section
+
+Score / verdict последнего статического прогона:
+20 / low_suspicion
+
+Как объяснять на защите:
+UNWIND_INFO лежит в executable memory.

@@ -1,0 +1,26 @@
+:: Product/build information
+eh_unwind_analyzer.exe --version
+
+:: Basic static analysis
+eh_unwind_analyzer.exe target.exe
+
+:: First 200 runtime functions with decoded unwind operations
+eh_unwind_analyzer.exe target.exe --dump --limit 200 --ops
+
+:: Full analyst report pack
+eh_unwind_analyzer.exe target.exe --heuristics --csv functions.csv --json report.json --html report.html
+
+:: Ghidra import
+eh_unwind_analyzer.exe target.exe --ghidra-csv ghidra_unwind.csv
+
+:: Windows dynamic validation; target arguments follow --
+eh_unwind_analyzer.exe target.exe --heuristics --dynamic --timeout-ms 15000 --trace-steps 64 --json dynamic.json --html dynamic.html -- --arg1 value
+
+:: Cross-platform regression suite
+python3 tests/run_regression_samples.py build/release/eh_unwind_analyzer
+
+:: Deterministic parser mutations
+python3 tests/run_mutation_fuzz.py build/release/eh_unwind_analyzer --cases 500
+
+:: Windows dynamic smoke pack
+call tests\run_dynamic_smoke_windows.bat build\msvc\Release\eh_unwind_analyzer.exe

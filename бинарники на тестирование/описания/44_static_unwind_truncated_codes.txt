@@ -1,0 +1,23 @@
+44_static_unwind_truncated_codes.exe
+
+Категория: static
+Путь: бинарники/static/44_static_unwind_truncated_codes.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+CountOfCodes завышен; структура остается в пределах секции, поэтому проект фиксирует unwind anomaly.
+
+Какой этап проекта демонстрирует:
+UNWIND_INFO
+
+Какие признаки/сигналы ожидались:
+unwind_anomalies
+
+Что фактически поймал последний статический прогон:
+unwind_anomalies
+
+Score / verdict последнего статического прогона:
+20 / low_suspicion
+
+Как объяснять на защите:
+Обрезанная структура unwind-кодов.

@@ -1,0 +1,23 @@
+13_static_placement_integrity_combo.exe
+
+Категория: static
+Путь: бинарники/static/13_static_placement_integrity_combo.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+Размещение metadata подозрительное и дополнительно поврежден UnwindInfoRVA.
+
+Какой этап проекта демонстрирует:
+Cross-family combo
+
+Какие признаки/сигналы ожидались:
+placement_integrity_combo
+
+Что фактически поймал последний статический прогон:
+unwind_rva_oob;unwind_parse_fail;unwind_in_exec_section;handler_nonexec_section;placement_exec_nonexec_handler_combo;placement_integrity_combo
+
+Score / verdict последнего статического прогона:
+100 / high_suspicion
+
+Как объяснять на защите:
+Показывает корреляцию placement и integrity.

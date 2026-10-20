@@ -1,0 +1,4 @@
+begin_rva,end_rva,name,comment
+0x00001000,0x00001010,sub_00001000,UNWIND parse failed: UnwindInfo RVA 0x00007100 not mappable to file offset.
+0x00001010,0x00001029,sub_00001010,UNWIND v1 flags=0 prolog=4 stack=40B frame=-+0 saved_gp=[-] saved_xmm=[-]
+0x00001029,0x00001040,sub_00001029,UNWIND v1 flags=0 prolog=4 stack=40B frame=-+0 saved_gp=[-] saved_xmm=[-]

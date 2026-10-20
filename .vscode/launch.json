@@ -1,0 +1,42 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug EH/Unwind Analyzer (Windows)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}\\build\\debug\\eh_unwind_analyzer.exe",
+            "args": [
+                "${workspaceFolder}\\tests\\samples\\bin\\benign_minimal.exe",
+                "--heuristics",
+                "--dump",
+                "--limit",
+                "5"
+            ],
+            "cwd": "${workspaceFolder}",
+            "externalConsole": true,
+            "stopAtEntry": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
+            "preLaunchTask": "CMake: build debug"
+        },
+        {
+            "name": "Debug EH/Unwind Analyzer (macOS/Linux)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/debug/eh_unwind_analyzer",
+            "args": [
+                "${workspaceFolder}/tests/samples/bin/benign_minimal.exe",
+                "--heuristics",
+                "--dump",
+                "--limit",
+                "5"
+            ],
+            "cwd": "${workspaceFolder}",
+            "externalConsole": false,
+            "stopAtEntry": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "CMake: build debug"
+        }
+    ]
+}

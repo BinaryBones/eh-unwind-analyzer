@@ -1,0 +1,23 @@
+62_static_single_weak_unusual_small_sample.exe
+
+Категория: static
+Путь: бинарники/static/62_static_single_weak_unusual_small_sample.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+Похожее на xdata имя без реального нарушения.
+
+Какой этап проекта демонстрирует:
+Mitigation
+
+Какие признаки/сигналы ожидались:
+negative control / no finding expected
+
+Что фактически поймал последний статический прогон:
+нет finding-кодов
+
+Score / verdict последнего статического прогона:
+0 / no_strong_static_anomalies
+
+Как объяснять на защите:
+Файл для объяснения, что эвристика не должна быть грубой.

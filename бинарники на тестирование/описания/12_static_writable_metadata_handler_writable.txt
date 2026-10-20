@@ -1,0 +1,23 @@
+12_static_writable_metadata_handler_writable.exe
+
+Категория: static
+Путь: бинарники/static/12_static_writable_metadata_handler_writable.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+Metadata и handler находятся в writable-областях.
+
+Какой этап проекта демонстрирует:
+Placement combo
+
+Какие признаки/сигналы ожидались:
+unwind_writable_section + handler_writable_section + writable_metadata_handler_combo
+
+Что фактически поймал последний статический прогон:
+unwind_parse_fail;unwind_writable_section;handler_nonexec_section;handler_writable_section;placement_integrity_combo;writable_metadata_handler_combo
+
+Score / verdict последнего статического прогона:
+86 / high_suspicion
+
+Как объяснять на защите:
+Сильный пример взаимного усиления признаков.

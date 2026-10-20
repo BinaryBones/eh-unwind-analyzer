@@ -1,0 +1,23 @@
+23_static_pe_section_virtual_oob_bss.exe
+
+Категория: static
+Путь: бинарники/static/23_static_pe_section_virtual_oob_bss.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+VirtualSize .bss выходит за SizeOfImage.
+
+Какой этап проекта демонстрирует:
+PE image layout
+
+Какие признаки/сигналы ожидались:
+pe_section_virtual_oob
+
+Что фактически поймал последний статический прогон:
+pe_section_virtual_oob;pe_section_virtual_overlap
+
+Score / verdict последнего статического прогона:
+40 / moderate_suspicion
+
+Как объяснять на защите:
+Контроль границ образа в RVA-пространстве.

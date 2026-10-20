@@ -1,0 +1,32 @@
+VERSION=1
+/
+  0000000e:01_benign_minimal.exe:ac1201dd99119270041000400
+  0000000f:02_benign_richer.exe:ac1201ddac119276428214800
+  00000010:03_static_unwind_oob_parse_fail.exe:ac1201ddb1119282720235700
+  00000011:04_static_invalid_ranges.exe:ac1201ddb7119289026135700
+  00000012:05_static_rf_oob.exe:ac1201ddbc119295168680000
+  00000013:06_static_unsorted_overlap_duplicate.exe:ac1201ddcc119301578544000
+  00000014:07_static_unwind_bad_opcode.exe:ac1201ddd8119307856926200
+  00000015:08_static_unwind_bad_operands.exe:ac1201dddd119314098457300
+  00000016:09_static_unwind_unusual_section.exe:ac1201dde2119320279075300
+  00000017:10_static_unwind_exec_handler_nonexec.exe:ac1201ddea119326519138300
+  00000018:11_static_unwind_writable_only.exe:ac1201c9d8119332726605600
+  00000019:12_static_writable_metadata_handler_writable.exe:ac1201c9e1119338870625400
+  0000001a:13_static_placement_integrity_combo.exe:ac1201cc1e119344998062000
+  0000001b:14_static_reuse_dominance_combo.exe:ac1201cc25119354076549200
+  0000000a:15_dynamic_veh.exe:ac1201d406119207379141900
+  0000000b:16_dynamic_vch.exe:ac1201d416119226359274600
+  0000000c:17_dynamic_uef.exe:ac1201d429119245097438700
+  0000000d:18_dynamic_rtl_function_table.exe:ac1201dd7d119263944917900
+  00000000:19_combo_veh_xdata_writable.exe:ac1201d092119017423362500
+  00000001:20_combo_veh_xdata_executable.exe:ac1201e61c119037120588100
+  00000002:21_combo_veh_xdata_wx.exe:ac1201e630119056191641100
+  00000003:22_combo_vch_xdata_writable.exe:ac1201e667119075047597400
+  00000004:23_combo_vch_xdata_renamed.exe:ac1201e68b119094054244300
+  00000005:24_combo_vch_xdata_renamed_writable.exe:ac1201d5a0119112839877100
+  00000006:25_combo_uef_xdata_writable.exe:ac1201ede8119131790351200
+  00000007:26_combo_uef_xdata_executable.exe:ac1201edfc119150857893400
+  00000008:27_combo_rtl_xdata_writable.exe:ac1201dd86119169741882100
+  00000009:28_combo_rtl_xdata_renamed_writable.exe:ac1201d3f8119188610201000
+NEXT-ID:1c
+MD5:d41d8cd98f00b204e9800998ecf8427e

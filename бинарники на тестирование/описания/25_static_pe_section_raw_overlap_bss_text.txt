@@ -1,0 +1,23 @@
+25_static_pe_section_raw_overlap_bss_text.exe
+
+Категория: static
+Путь: бинарники/static/25_static_pe_section_raw_overlap_bss_text.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+Raw range .bss пересекается с .text.
+
+Какой этап проекта демонстрирует:
+PE section table
+
+Какие признаки/сигналы ожидались:
+pe_section_raw_overlap
+
+Что фактически поймал последний статический прогон:
+pe_section_raw_overlap
+
+Score / verdict последнего статического прогона:
+15 / low_suspicion
+
+Как объяснять на защите:
+Проверка неоднозначного file offset mapping.

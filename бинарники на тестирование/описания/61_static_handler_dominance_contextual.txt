@@ -1,0 +1,23 @@
+61_static_handler_dominance_contextual.exe
+
+Категория: static
+Путь: бинарники/static/61_static_handler_dominance_contextual.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+Много валидных UNWIND_INFO ссылаются на один code handler; отдельно добавлен context signal через UnwindInfoRVA OOB.
+
+Какой этап проекта демонстрирует:
+Statistical heuristic
+
+Какие признаки/сигналы ожидались:
+handler_dominance + unwind_rva_oob
+
+Что фактически поймал последний статический прогон:
+unwind_rva_oob;unwind_parse_fail;handler_dominance
+
+Score / verdict последнего статического прогона:
+35 / low_suspicion
+
+Как объяснять на защите:
+Показывает, почему dominance оценивается осторожно.

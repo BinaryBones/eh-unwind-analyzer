@@ -1,0 +1,23 @@
+43_static_unwind_bad_version.exe
+
+Категория: static
+Путь: бинарники/static/43_static_unwind_bad_version.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+UNWIND_INFO version выставлена в неподдерживаемое значение.
+
+Какой этап проекта демонстрирует:
+UNWIND_INFO
+
+Какие признаки/сигналы ожидались:
+unwind_parse_fail
+
+Что фактически поймал последний статический прогон:
+unwind_parse_fail
+
+Score / verdict последнего статического прогона:
+25 / low_suspicion
+
+Как объяснять на защите:
+Проверка версии структуры.

@@ -1,0 +1,23 @@
+10_static_unwind_exec_handler_nonexec.exe
+
+Категория: static
+Путь: бинарники/static/10_static_unwind_exec_handler_nonexec.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+UNWIND_INFO в executable-секции, handler в non-exec.
+
+Какой этап проекта демонстрирует:
+Placement combo
+
+Какие признаки/сигналы ожидались:
+unwind_in_exec_section + handler_nonexec_section + placement_exec_nonexec_handler_combo
+
+Что фактически поймал последний статический прогон:
+unwind_parse_fail;unwind_in_exec_section;handler_nonexec_section;placement_exec_nonexec_handler_combo;placement_integrity_combo
+
+Score / verdict последнего статического прогона:
+78 / high_suspicion
+
+Как объяснять на защите:
+Комбинация сильнее одиночного сигнала.

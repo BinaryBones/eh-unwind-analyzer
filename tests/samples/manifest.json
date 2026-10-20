@@ -1,0 +1,75 @@
+{
+  "samples": [
+    {
+      "path": "tests/samples/bin/benign_minimal.exe",
+      "expect": {
+        "functions_len_ge": 1,
+        "heuristic_analysis.score": 0,
+        "heuristic_analysis.verdict": "no_strong_static_anomalies",
+        "heuristic_analysis.evidence_level": "none",
+        "heuristic_analysis.requires_manual_review": false,
+        "heuristic_analysis.rf_unwind_oob": 0,
+        "heuristic_analysis.unwind_parse_fail": 0,
+        "assessment.case_strength": "no_case"
+      }
+    },
+    {
+      "path": "tests/samples/bin/benign_richer.exe",
+      "expect": {
+        "functions_len_ge": 2,
+        "heuristic_analysis.score": 0,
+        "heuristic_analysis.verdict": "no_strong_static_anomalies",
+        "heuristic_analysis.evidence_level": "none",
+        "heuristic_analysis.requires_manual_review": false,
+        "heuristic_analysis.rf_unwind_oob": 0,
+        "heuristic_analysis.unwind_parse_fail": 0,
+        "assessment.case_strength": "no_case"
+      }
+    },
+    {
+      "path": "tests/samples/bin/suspicious_unwind_oob.exe",
+      "expect": {
+        "functions_len_ge": 2,
+        "heuristic_analysis.score_ge": 40,
+        "heuristic_analysis.verdict": "moderate_suspicion",
+        "heuristic_analysis.rf_unwind_oob": 1,
+        "heuristic_analysis.unwind_parse_fail": 1,
+        "assessment.case_strength": "strong_unconfirmed_case"
+      }
+    },
+    {
+      "path": "tests/samples/bin/suspicious_unwind_writable.exe",
+      "expect": {
+        "functions_len_ge": 2,
+        "heuristic_analysis.score_ge": 15,
+        "heuristic_analysis.verdict": "low_suspicion",
+        "heuristic_analysis.unwind_writable_section_ge": 1,
+        "heuristic_analysis.unwind_parse_fail": 0,
+        "assessment.case_strength": "medium_case"
+      }
+    },
+    {
+      "path": "tests/samples/bin/suspicious_section_raw_oob.exe",
+      "expect": {
+        "functions_len_ge": 2,
+        "heuristic_analysis.score_ge": 40,
+        "heuristic_analysis.verdict": "moderate_suspicion",
+        "heuristic_analysis.pe_section_raw_oob": 1,
+        "heuristic_analysis.pe_section_raw_overlaps_ge": 1,
+        "assessment.case_strength": "strong_unconfirmed_case"
+      }
+    },
+    {
+      "path": "tests/samples/bin/suspicious_eh_unwind_tamper.exe",
+      "expect": {
+        "functions_len_ge": 2,
+        "heuristic_analysis.score_ge": 40,
+        "heuristic_analysis.verdict": "moderate_suspicion",
+        "heuristic_analysis.unwind_writable_section_ge": 1,
+        "heuristic_analysis.handler_nonexec_section": 1,
+        "heuristic_analysis.handler_writable_section": 1,
+        "assessment.case_strength": "strong_unconfirmed_case"
+      }
+    }
+  ]
+}

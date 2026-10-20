@@ -1,0 +1,23 @@
+56_static_unwind_in_rdata_clean.exe
+
+Категория: static
+Путь: бинарники/static/56_static_unwind_in_rdata_clean.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+Одна UNWIND_INFO скопирована в .rdata, что считается допустимым placement.
+
+Какой этап проекта демонстрирует:
+Mitigation / false-positive control
+
+Какие признаки/сигналы ожидались:
+baseline clean / allowed .rdata placement
+
+Что фактически поймал последний статический прогон:
+нет finding-кодов
+
+Score / verdict последнего статического прогона:
+0 / no_strong_static_anomalies
+
+Как объяснять на защите:
+Показывает whitelisting ожидаемых секций.

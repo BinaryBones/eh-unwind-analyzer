@@ -1,0 +1,23 @@
+11_static_unwind_writable_only.exe
+
+Категория: static
+Путь: бинарники/static/11_static_unwind_writable_only.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+Секция UNWIND_INFO сделана writable.
+
+Какой этап проекта демонстрирует:
+Metadata permissions
+
+Какие признаки/сигналы ожидались:
+unwind_writable_section
+
+Что фактически поймал последний статический прогон:
+unwind_writable_section
+
+Score / verdict последнего статического прогона:
+18 / low_suspicion
+
+Как объяснять на защите:
+Показывает риск изменяемой metadata.

@@ -1,0 +1,23 @@
+39_static_unwind_rva_after_image.exe
+
+Категория: static
+Путь: бинарники/static/39_static_unwind_rva_after_image.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+UnwindInfoAddress выходит за SizeOfImage.
+
+Какой этап проекта демонстрирует:
+RUNTIME_FUNCTION -> UNWIND_INFO
+
+Какие признаки/сигналы ожидались:
+unwind_rva_oob + unwind_parse_fail
+
+Что фактически поймал последний статический прогон:
+unwind_rva_oob;unwind_parse_fail
+
+Score / verdict последнего статического прогона:
+50 / moderate_suspicion
+
+Как объяснять на защите:
+Адрес metadata вне образа.

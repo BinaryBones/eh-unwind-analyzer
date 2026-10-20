@@ -1,0 +1,23 @@
+18_dynamic_rtl_function_table.exe
+
+Категория: dynamic
+Путь: бинарники/dynamic/18_dynamic_rtl_function_table.exe
+Режим проверки: dynamic --timeout-ms
+
+Что специально сделано с бинарником:
+Программа вызывает Rtl*FunctionTable API.
+
+Какой этап проекта демонстрирует:
+Dynamic validation
+
+Какие признаки/сигналы ожидались:
+rtl_add_function_table_calls / rtl_install_function_table_cb_calls
+
+Что фактически поймал последний статический прогон:
+нет finding-кодов
+
+Score / verdict последнего статического прогона:
+0 / no_strong_static_anomalies
+
+Как объяснять на защите:
+Показывает JIT/runtime function table activity.

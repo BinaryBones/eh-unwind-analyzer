@@ -1,0 +1,23 @@
+24_static_pe_section_virtual_oob_xdata.exe
+
+Категория: static
+Путь: бинарники/static/24_static_pe_section_virtual_oob_xdata.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+VirtualSize .xdata выходит за SizeOfImage.
+
+Какой этап проекта демонстрирует:
+PE image layout
+
+Какие признаки/сигналы ожидались:
+pe_section_virtual_oob
+
+Что фактически поймал последний статический прогон:
+pe_section_virtual_oob;pe_section_virtual_overlap
+
+Score / verdict последнего статического прогона:
+40 / moderate_suspicion
+
+Как объяснять на защите:
+Показывает повреждение layout вокруг unwind metadata.

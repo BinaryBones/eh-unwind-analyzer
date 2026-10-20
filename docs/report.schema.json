@@ -1,0 +1,1369 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ehua:report-schema:1.3.0",
+  "title": "EH/Unwind Analyzer report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "input",
+    "report_metadata",
+    "image_base",
+    "size_of_image",
+    "size_of_headers",
+    "section_alignment",
+    "file_alignment",
+    "exception_directory",
+    "pe_validation",
+    "sections",
+    "functions"
+  ],
+  "properties": {
+    "input": {
+      "type": "string"
+    },
+    "report_metadata": {
+      "$ref": "#/$defs/report_metadata"
+    },
+    "image_base": {
+      "$ref": "#/$defs/hex"
+    },
+    "size_of_image": {
+      "$ref": "#/$defs/hex"
+    },
+    "size_of_headers": {
+      "$ref": "#/$defs/hex"
+    },
+    "section_alignment": {
+      "$ref": "#/$defs/hex"
+    },
+    "file_alignment": {
+      "$ref": "#/$defs/hex"
+    },
+    "exception_directory": {
+      "$ref": "#/$defs/exception_directory"
+    },
+    "pe_validation": {
+      "$ref": "#/$defs/pe_validation"
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/section"
+      }
+    },
+    "heuristic_analysis": {
+      "$ref": "#/$defs/heuristic_analysis"
+    },
+    "dynamic_validation": {
+      "$ref": "#/$defs/dynamic_validation"
+    },
+    "assessment": {
+      "$ref": "#/$defs/assessment"
+    },
+    "functions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/runtime_function"
+      }
+    }
+  },
+  "$defs": {
+    "hex": {
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]+$"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "probability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "evidence_level": {
+      "enum": [
+        "none",
+        "weak",
+        "medium",
+        "strong"
+      ]
+    },
+    "report_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "tool_version",
+        "generated_at_utc",
+        "input_sha256",
+        "input_size",
+        "command_line",
+        "build_compiler",
+        "build_platform",
+        "build_mode",
+        "strict_abi",
+        "follow_chain",
+        "max_chain_depth"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.3.0"
+        },
+        "tool_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generated_at_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "input_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "input_size": {
+          "$ref": "#/$defs/count"
+        },
+        "command_line": {
+          "type": "string"
+        },
+        "build_compiler": {
+          "type": "string",
+          "minLength": 1
+        },
+        "build_platform": {
+          "type": "string",
+          "minLength": 1
+        },
+        "build_mode": {
+          "enum": [
+            "debug",
+            "release"
+          ]
+        },
+        "strict_abi": {
+          "type": "boolean"
+        },
+        "follow_chain": {
+          "type": "boolean"
+        },
+        "max_chain_depth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        }
+      }
+    },
+    "exception_directory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rva",
+        "size"
+      ],
+      "properties": {
+        "rva": {
+          "$ref": "#/$defs/hex"
+        },
+        "size": {
+          "$ref": "#/$defs/hex"
+        }
+      }
+    },
+    "pe_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "section_raw_oob",
+        "section_virtual_oob",
+        "section_raw_overlaps",
+        "section_virtual_overlaps",
+        "section_misaligned",
+        "exception_directory_oob"
+      ],
+      "properties": {
+        "section_raw_oob": {
+          "$ref": "#/$defs/count"
+        },
+        "section_virtual_oob": {
+          "$ref": "#/$defs/count"
+        },
+        "section_raw_overlaps": {
+          "$ref": "#/$defs/count"
+        },
+        "section_virtual_overlaps": {
+          "$ref": "#/$defs/count"
+        },
+        "section_misaligned": {
+          "$ref": "#/$defs/count"
+        },
+        "exception_directory_oob": {
+          "type": "boolean"
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "virtual_address",
+        "virtual_size",
+        "raw_offset",
+        "raw_size",
+        "characteristics",
+        "readable",
+        "writable",
+        "executable"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 8
+        },
+        "virtual_address": {
+          "$ref": "#/$defs/hex"
+        },
+        "virtual_size": {
+          "$ref": "#/$defs/hex"
+        },
+        "raw_offset": {
+          "$ref": "#/$defs/hex"
+        },
+        "raw_size": {
+          "$ref": "#/$defs/hex"
+        },
+        "characteristics": {
+          "$ref": "#/$defs/hex"
+        },
+        "readable": {
+          "type": "boolean"
+        },
+        "writable": {
+          "type": "boolean"
+        },
+        "executable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "family",
+        "severity",
+        "message",
+        "title_ru",
+        "meaning_ru",
+        "why_it_matters_ru",
+        "what_to_check_next_ru",
+        "affected_count",
+        "representative_rva",
+        "representative_section",
+        "representative_file_offset",
+        "representative_section_characteristics",
+        "representative_section_permissions",
+        "related_function_index",
+        "related_function_begin_rva",
+        "related_function_end_rva",
+        "related_function_unwind_rva",
+        "rule",
+        "observed",
+        "expected",
+        "impact",
+        "evidence_chain"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "enum": [
+            "table_integrity",
+            "unwind_integrity",
+            "metadata_placement",
+            "unwind_reuse",
+            "handler_dominance"
+          ]
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "weak",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "affected_count": {
+          "$ref": "#/$defs/count"
+        },
+        "representative_rva": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "representative_section": {
+          "type": "string"
+        },
+        "representative_file_offset": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "representative_section_characteristics": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "representative_section_permissions": {
+          "type": "string",
+          "pattern": "^[RWX-]{3}$"
+        },
+        "related_function_index": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/count"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "related_function_begin_rva": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "related_function_end_rva": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "related_function_unwind_rva": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rule": {
+          "type": "string"
+        },
+        "observed": {
+          "type": "string"
+        },
+        "expected": {
+          "type": "string"
+        },
+        "impact": {
+          "type": "string"
+        },
+        "title_ru": {
+          "type": "string"
+        },
+        "meaning_ru": {
+          "type": "string"
+        },
+        "why_it_matters_ru": {
+          "type": "string"
+        },
+        "what_to_check_next_ru": {
+          "type": "string"
+        },
+        "evidence_chain": {
+          "$ref": "#/$defs/evidence_chain"
+        },
+        "evidence_records_total": {
+          "$ref": "#/$defs/count"
+        },
+        "evidence_records_limit": {
+          "$ref": "#/$defs/count"
+        },
+        "evidence_records_truncated": {
+          "type": "boolean"
+        },
+        "evidence_records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding_evidence_record"
+          }
+        }
+      }
+    },
+    "weakening_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "heuristic_analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "score",
+        "score_weight_sum",
+        "suspicion",
+        "confidence",
+        "requires_manual_review",
+        "verdict",
+        "evidence_level",
+        "weak_finding_count",
+        "medium_finding_count",
+        "strong_finding_count",
+        "total",
+        "pe_section_raw_oob",
+        "pe_section_virtual_oob",
+        "pe_section_raw_overlaps",
+        "pe_section_virtual_overlaps",
+        "pe_section_misaligned",
+        "pe_exception_directory_oob",
+        "rf_invalid_ranges",
+        "rf_oob",
+        "rf_unwind_oob",
+        "rf_unsorted",
+        "rf_overlaps",
+        "rf_duplicate_begins",
+        "unwind_parse_fail",
+        "unwind_anomalies",
+        "unwind_abi_warnings",
+        "unwind_unusual_section",
+        "unwind_exec_section",
+        "unwind_writable_section",
+        "handler_nonexec_section",
+        "handler_writable_section",
+        "unwind_reuse_ratio",
+        "unwind_unique_ratio",
+        "handler_count",
+        "handler_reuse_ratio",
+        "evidence_family_count",
+        "evidence_families",
+        "findings",
+        "weakening_rules_applied",
+        "weakening_rule_count",
+        "details"
+      ],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "score_weight_sum": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "suspicion": {
+          "$ref": "#/$defs/probability"
+        },
+        "confidence": {
+          "$ref": "#/$defs/probability"
+        },
+        "requires_manual_review": {
+          "type": "boolean"
+        },
+        "verdict": {
+          "enum": [
+            "no_strong_static_anomalies",
+            "low_suspicion",
+            "moderate_suspicion",
+            "high_suspicion"
+          ]
+        },
+        "evidence_level": {
+          "$ref": "#/$defs/evidence_level"
+        },
+        "weak_finding_count": {
+          "$ref": "#/$defs/count"
+        },
+        "medium_finding_count": {
+          "$ref": "#/$defs/count"
+        },
+        "strong_finding_count": {
+          "$ref": "#/$defs/count"
+        },
+        "total": {
+          "$ref": "#/$defs/count"
+        },
+        "pe_section_raw_oob": {
+          "$ref": "#/$defs/count"
+        },
+        "pe_section_virtual_oob": {
+          "$ref": "#/$defs/count"
+        },
+        "pe_section_raw_overlaps": {
+          "$ref": "#/$defs/count"
+        },
+        "pe_section_virtual_overlaps": {
+          "$ref": "#/$defs/count"
+        },
+        "pe_section_misaligned": {
+          "$ref": "#/$defs/count"
+        },
+        "pe_exception_directory_oob": {
+          "type": "boolean"
+        },
+        "rf_invalid_ranges": {
+          "$ref": "#/$defs/count"
+        },
+        "rf_oob": {
+          "$ref": "#/$defs/count"
+        },
+        "rf_unwind_oob": {
+          "$ref": "#/$defs/count"
+        },
+        "rf_unsorted": {
+          "$ref": "#/$defs/count"
+        },
+        "rf_overlaps": {
+          "$ref": "#/$defs/count"
+        },
+        "rf_duplicate_begins": {
+          "$ref": "#/$defs/count"
+        },
+        "unwind_parse_fail": {
+          "$ref": "#/$defs/count"
+        },
+        "unwind_anomalies": {
+          "$ref": "#/$defs/count"
+        },
+        "unwind_abi_warnings": {
+          "$ref": "#/$defs/count"
+        },
+        "unwind_unusual_section": {
+          "$ref": "#/$defs/count"
+        },
+        "unwind_exec_section": {
+          "$ref": "#/$defs/count"
+        },
+        "unwind_writable_section": {
+          "$ref": "#/$defs/count"
+        },
+        "handler_nonexec_section": {
+          "$ref": "#/$defs/count"
+        },
+        "handler_writable_section": {
+          "$ref": "#/$defs/count"
+        },
+        "unwind_reuse_ratio": {
+          "$ref": "#/$defs/probability"
+        },
+        "unwind_unique_ratio": {
+          "$ref": "#/$defs/probability"
+        },
+        "handler_count": {
+          "$ref": "#/$defs/count"
+        },
+        "handler_reuse_ratio": {
+          "$ref": "#/$defs/probability"
+        },
+        "evidence_family_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "evidence_families": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "table_integrity",
+              "unwind_integrity",
+              "metadata_placement",
+              "unwind_reuse",
+              "handler_dominance"
+            ]
+          }
+        },
+        "findings": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        },
+        "weakening_rules_applied": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "$ref": "#/$defs/weakening_rule"
+          }
+        },
+        "weakening_rule_count": {
+          "$ref": "#/$defs/count"
+        },
+        "details": {
+          "type": "string"
+        }
+      }
+    },
+    "dynamic_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "module",
+        "thread_id",
+        "exception_code",
+        "first_chance",
+        "address",
+        "arg0",
+        "arg1",
+        "arg2",
+        "arg3"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "module": {
+          "type": "string"
+        },
+        "thread_id": {
+          "$ref": "#/$defs/count"
+        },
+        "exception_code": {
+          "$ref": "#/$defs/hex"
+        },
+        "first_chance": {
+          "type": "boolean"
+        },
+        "address": {
+          "$ref": "#/$defs/hex"
+        },
+        "arg0": {
+          "$ref": "#/$defs/hex"
+        },
+        "arg1": {
+          "$ref": "#/$defs/hex"
+        },
+        "arg2": {
+          "$ref": "#/$defs/hex"
+        },
+        "arg3": {
+          "$ref": "#/$defs/hex"
+        }
+      }
+    },
+    "dynamic_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "ran",
+        "ok",
+        "timed_out",
+        "target_exited",
+        "target_exit_code",
+        "timeout_ms",
+        "trace_steps",
+        "instrumentation_complete",
+        "modules_observed_peak",
+        "module_refresh_failures",
+        "module_list_truncations",
+        "unwind_handlers_discovered",
+        "breakpoint_set_attempts",
+        "breakpoint_set_failures",
+        "breakpoint_capacity_drops",
+        "pending_rearm_failures",
+        "breakpoint_rearm_failures",
+        "exceptions_seen",
+        "first_chance_seen",
+        "second_chance_seen",
+        "unwind_handler_bp_set",
+        "unwind_handler_hits",
+        "veh_registrations",
+        "veh_hits",
+        "vch_registrations",
+        "vch_hits",
+        "uef_set_calls",
+        "uef_hits",
+        "rtl_add_function_table_calls",
+        "rtl_install_function_table_cb_calls",
+        "dynamic_signal_count",
+        "dropped_events",
+        "details",
+        "events",
+        "trace"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "ran": {
+          "type": "boolean"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "timed_out": {
+          "type": "boolean"
+        },
+        "target_exited": {
+          "type": "boolean"
+        },
+        "target_exit_code": {
+          "$ref": "#/$defs/count"
+        },
+        "timeout_ms": {
+          "$ref": "#/$defs/count"
+        },
+        "trace_steps": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "instrumentation_complete": {
+          "type": "boolean"
+        },
+        "modules_observed_peak": {
+          "$ref": "#/$defs/count"
+        },
+        "module_refresh_failures": {
+          "$ref": "#/$defs/count"
+        },
+        "module_list_truncations": {
+          "$ref": "#/$defs/count"
+        },
+        "unwind_handlers_discovered": {
+          "$ref": "#/$defs/count"
+        },
+        "breakpoint_set_attempts": {
+          "$ref": "#/$defs/count"
+        },
+        "breakpoint_set_failures": {
+          "$ref": "#/$defs/count"
+        },
+        "breakpoint_capacity_drops": {
+          "$ref": "#/$defs/count"
+        },
+        "pending_rearm_failures": {
+          "$ref": "#/$defs/count"
+        },
+        "breakpoint_rearm_failures": {
+          "$ref": "#/$defs/count"
+        },
+        "exceptions_seen": {
+          "$ref": "#/$defs/count"
+        },
+        "first_chance_seen": {
+          "$ref": "#/$defs/count"
+        },
+        "second_chance_seen": {
+          "$ref": "#/$defs/count"
+        },
+        "unwind_handler_bp_set": {
+          "$ref": "#/$defs/count"
+        },
+        "unwind_handler_hits": {
+          "$ref": "#/$defs/count"
+        },
+        "veh_registrations": {
+          "$ref": "#/$defs/count"
+        },
+        "veh_hits": {
+          "$ref": "#/$defs/count"
+        },
+        "vch_registrations": {
+          "$ref": "#/$defs/count"
+        },
+        "vch_hits": {
+          "$ref": "#/$defs/count"
+        },
+        "uef_set_calls": {
+          "$ref": "#/$defs/count"
+        },
+        "uef_hits": {
+          "$ref": "#/$defs/count"
+        },
+        "rtl_add_function_table_calls": {
+          "$ref": "#/$defs/count"
+        },
+        "rtl_install_function_table_cb_calls": {
+          "$ref": "#/$defs/count"
+        },
+        "dynamic_signal_count": {
+          "$ref": "#/$defs/count"
+        },
+        "dropped_events": {
+          "$ref": "#/$defs/count"
+        },
+        "details": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/dynamic_event"
+          }
+        },
+        "trace": {
+          "type": "array",
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/hex"
+          }
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "final_verdict",
+        "final_confidence",
+        "static_evidence_level",
+        "runtime_evidence_level",
+        "case_strength",
+        "static_dynamic_correlation",
+        "dynamic_signal_count",
+        "weakening_rule_count",
+        "manual_validation_steps"
+      ],
+      "properties": {
+        "final_verdict": {
+          "enum": [
+            "no_strong_correlated_evidence",
+            "low_suspicion_static",
+            "low_suspicion_correlated",
+            "moderate_suspicion_static",
+            "moderate_suspicion_correlated",
+            "high_suspicion_static",
+            "high_suspicion_correlated",
+            "runtime_signals_only"
+          ]
+        },
+        "final_confidence": {
+          "$ref": "#/$defs/probability"
+        },
+        "static_evidence_level": {
+          "$ref": "#/$defs/evidence_level"
+        },
+        "runtime_evidence_level": {
+          "$ref": "#/$defs/evidence_level"
+        },
+        "case_strength": {
+          "enum": [
+            "no_case",
+            "weak_case",
+            "medium_case",
+            "strong_unconfirmed_case",
+            "medium_correlated_case",
+            "strong_correlated_case"
+          ]
+        },
+        "static_dynamic_correlation": {
+          "type": "boolean"
+        },
+        "dynamic_signal_count": {
+          "$ref": "#/$defs/count"
+        },
+        "weakening_rule_count": {
+          "$ref": "#/$defs/count"
+        },
+        "manual_validation_steps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "unwind_chain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "begin_rva",
+        "end_rva",
+        "unwind_rva"
+      ],
+      "properties": {
+        "begin_rva": {
+          "$ref": "#/$defs/hex"
+        },
+        "end_rva": {
+          "$ref": "#/$defs/hex"
+        },
+        "unwind_rva": {
+          "$ref": "#/$defs/hex"
+        }
+      }
+    },
+    "unwind_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "flags",
+        "prolog_size",
+        "count_codes",
+        "fixed_stack_bytes",
+        "frame_reg",
+        "frame_off",
+        "has_handler",
+        "handler_rva",
+        "handler_section",
+        "has_chain",
+        "anomalies",
+        "anomalies_text",
+        "chain",
+        "diagnostic"
+      ],
+      "properties": {
+        "version": {
+          "$ref": "#/$defs/count"
+        },
+        "flags": {
+          "$ref": "#/$defs/count"
+        },
+        "prolog_size": {
+          "$ref": "#/$defs/count"
+        },
+        "count_codes": {
+          "$ref": "#/$defs/count"
+        },
+        "fixed_stack_bytes": {
+          "$ref": "#/$defs/count"
+        },
+        "frame_reg": {
+          "type": "string"
+        },
+        "frame_off": {
+          "$ref": "#/$defs/count"
+        },
+        "has_handler": {
+          "type": "boolean"
+        },
+        "handler_rva": {
+          "$ref": "#/$defs/hex"
+        },
+        "handler_section": {
+          "type": "string"
+        },
+        "has_chain": {
+          "type": "boolean"
+        },
+        "anomalies": {
+          "$ref": "#/$defs/count"
+        },
+        "anomalies_text": {
+          "type": "string"
+        },
+        "chain": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/unwind_chain"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "diagnostic": {
+          "$ref": "#/$defs/unwind_diagnostic"
+        }
+      }
+    },
+    "runtime_function": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "index",
+        "begin_rva",
+        "end_rva",
+        "size",
+        "begin_section",
+        "unwind_rva",
+        "unwind_section",
+        "unwind_ok",
+        "unwind_error",
+        "unwind",
+        "comment"
+      ],
+      "properties": {
+        "index": {
+          "$ref": "#/$defs/count"
+        },
+        "begin_rva": {
+          "$ref": "#/$defs/hex"
+        },
+        "end_rva": {
+          "$ref": "#/$defs/hex"
+        },
+        "size": {
+          "$ref": "#/$defs/count"
+        },
+        "begin_section": {
+          "type": "string"
+        },
+        "unwind_rva": {
+          "$ref": "#/$defs/hex"
+        },
+        "unwind_section": {
+          "type": "string"
+        },
+        "unwind_ok": {
+          "type": "boolean"
+        },
+        "unwind_error": {
+          "type": "string"
+        },
+        "unwind": {
+          "$ref": "#/$defs/unwind_summary"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "pdata_entry_rva": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "pdata_entry_file_offset": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "runtime_function_entry_size": {
+          "$ref": "#/$defs/count"
+        }
+      }
+    },
+    "nullable_count": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/count"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "unwind_diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "failed_field",
+        "failure_file_offset",
+        "expected_size",
+        "available_size",
+        "expected_slots",
+        "available_slots",
+        "bytes_file_offset",
+        "bytes_hex",
+        "bytes_count",
+        "chain_path",
+        "chain_loop_detected",
+        "chain_loop_rva"
+      ],
+      "properties": {
+        "failed_field": {
+          "type": "string"
+        },
+        "failure_file_offset": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expected_size": {
+          "$ref": "#/$defs/nullable_count"
+        },
+        "available_size": {
+          "$ref": "#/$defs/nullable_count"
+        },
+        "expected_slots": {
+          "$ref": "#/$defs/nullable_count"
+        },
+        "available_slots": {
+          "$ref": "#/$defs/nullable_count"
+        },
+        "bytes_file_offset": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bytes_hex": {
+          "type": "string"
+        },
+        "bytes_count": {
+          "$ref": "#/$defs/count"
+        },
+        "chain_path": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/hex"
+          },
+          "maxItems": 16
+        },
+        "chain_loop_detected": {
+          "type": "boolean"
+        },
+        "chain_loop_rva": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "evidence_chain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exception_directory_rva",
+        "exception_directory_size",
+        "runtime_function_index",
+        "function_begin_rva",
+        "function_end_rva",
+        "unwind_rva",
+        "unwind_section",
+        "unwind_file_offset",
+        "unwind_section_permissions",
+        "failed_field"
+      ],
+      "properties": {
+        "exception_directory_rva": {
+          "$ref": "#/$defs/hex"
+        },
+        "exception_directory_size": {
+          "$ref": "#/$defs/hex"
+        },
+        "runtime_function_index": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/count"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "function_begin_rva": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "function_end_rva": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unwind_rva": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unwind_section": {
+          "type": "string"
+        },
+        "unwind_file_offset": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hex"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unwind_section_permissions": {
+          "type": "string",
+          "pattern": "^[RWX-]{3}$"
+        },
+        "failed_field": {
+          "type": "string"
+        },
+        "exception_directory_file_offset": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "runtime_function_entry_size": {
+          "$ref": "#/$defs/count"
+        },
+        "pdata_entry_rva": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "pdata_entry_file_offset": {
+          "$ref": "#/$defs/nullable_hex"
+        }
+      }
+    },
+    "nullable_hex": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/hex"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "finding_evidence_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_function_index",
+        "pdata_entry_rva",
+        "pdata_entry_file_offset",
+        "runtime_function_entry_size",
+        "function_begin_rva",
+        "function_end_rva",
+        "function_size",
+        "function_begin_section",
+        "unwind_rva",
+        "unwind_section",
+        "unwind_file_offset",
+        "unwind_section_permissions",
+        "handler_rva",
+        "handler_section",
+        "handler_file_offset",
+        "handler_section_permissions",
+        "unwind_ok",
+        "parse_error",
+        "failed_field",
+        "reason_ru",
+        "diagnostic"
+      ],
+      "properties": {
+        "runtime_function_index": {
+          "$ref": "#/$defs/count"
+        },
+        "pdata_entry_rva": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "pdata_entry_file_offset": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "runtime_function_entry_size": {
+          "$ref": "#/$defs/count"
+        },
+        "function_begin_rva": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "function_end_rva": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "function_size": {
+          "$ref": "#/$defs/count"
+        },
+        "function_begin_section": {
+          "type": "string"
+        },
+        "unwind_rva": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "unwind_section": {
+          "type": "string"
+        },
+        "unwind_file_offset": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "unwind_section_permissions": {
+          "type": "string",
+          "pattern": "^[RWX-]{3}$"
+        },
+        "handler_rva": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "handler_section": {
+          "type": "string"
+        },
+        "handler_file_offset": {
+          "$ref": "#/$defs/nullable_hex"
+        },
+        "handler_section_permissions": {
+          "type": "string",
+          "pattern": "^[RWX-]{3}$"
+        },
+        "unwind_ok": {
+          "type": "boolean"
+        },
+        "parse_error": {
+          "type": "string"
+        },
+        "failed_field": {
+          "type": "string"
+        },
+        "reason_ru": {
+          "type": "string"
+        },
+        "diagnostic": {
+          "$ref": "#/$defs/unwind_diagnostic"
+        }
+      }
+    }
+  }
+}

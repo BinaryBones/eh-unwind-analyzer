@@ -1,0 +1,23 @@
+55_static_unwind_plausible_xdata_name_clean.exe
+
+Категория: static
+Путь: бинарники/static/55_static_unwind_plausible_xdata_name_clean.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+Секция .xdata переименована в myxdata, имя все еще plausibly unwind-named.
+
+Какой этап проекта демонстрирует:
+Mitigation / false-positive control
+
+Какие признаки/сигналы ожидались:
+baseline clean / no unusual section
+
+Что фактически поймал последний статический прогон:
+нет finding-кодов
+
+Score / verdict последнего статического прогона:
+0 / no_strong_static_anomalies
+
+Как объяснять на защите:
+Показывает, что не любое переименование считается аномалией.

@@ -1,0 +1,23 @@
+22_static_pe_section_raw_oob_xdata.exe
+
+Категория: static
+Путь: бинарники/static/22_static_pe_section_raw_oob_xdata.exe
+Режим проверки: static --heuristics
+
+Что специально сделано с бинарником:
+RawSize .xdata сделан больше файла.
+
+Какой этап проекта демонстрирует:
+PE section table
+
+Какие признаки/сигналы ожидались:
+pe_section_raw_oob
+
+Что фактически поймал последний статический прогон:
+pe_section_raw_oob;pe_section_raw_overlap;pe_section_virtual_overlap;pe_section_misaligned
+
+Score / verdict последнего статического прогона:
+68 / moderate_suspicion
+
+Как объяснять на защите:
+Показывает, что даже нужная metadata-секция проверяется по file size.

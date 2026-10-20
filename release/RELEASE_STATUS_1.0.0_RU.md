@@ -1,5 +1,10 @@
 # Паспорт качества релиза 1.0.0
 
+> Историческая проверка от 19 июня 2026 года для схемы отчёта `1.1.0`.
+> Текущие исходники используют схему `1.3.0`; этот паспорт и связанный
+> манифест не подтверждают готовность текущего Windows-бинарника.
+> Текущие проверки описаны в `docs/PRODUCT_READINESS.md` и GitHub Actions.
+
 Дата финальной проверки: 19 июня 2026 года.
 
 Версия инструмента: `1.0.0`.
@@ -62,14 +67,6 @@ Runtime functions parsed: 174,795
 
 The labeled static corpus confirms that the two benign samples stay at score 0
 and all 12 anomalous samples are detected.
-
-## Documentation status
-
-The five files in `docs/ru` were preserved and are not temporary files. The PDF
-materials are retained as theory/defense documentation. The authoritative
-version-specific release status for the final build is this file plus
-`release/VERIFIED_WINDOWS_BUILD.json`, `docs/PRODUCT_READINESS.md` and
-`AUDIT_INVESTOR_READINESS_RU.md`.
 
 ## Boundaries
 

@@ -120,6 +120,12 @@ def allowed(path: Path) -> bool:
     )
     if any(tree in path.parents for tree in excluded_trees):
         return False
+    if path.parent == ROOT / "бинарники на тестирование" and (
+        path.suffix.lower() in {".docx", ".pdf"}
+        or (path.name.startswith("results_") and path.suffix == ".csv")
+        or path.name == "summary_extended.json"
+    ):
+        return False
     if ".backup_" in path.name or path.suffix in {".bak", ".tmp"}:
         return False
     if path.parent == ROOT / "tests" and (
@@ -148,7 +154,7 @@ def manifest_path(manifest: dict[str, object], key: str) -> Path:
 
 
 def release_status_path(manifest: dict[str, object]) -> Path:
-    value = manifest.get("release_status", "release/RELEASE_STATUS_RU.md")
+    value = manifest.get("release_status", "release/RELEASE_STATUS_1.0.0_RU.md")
     if not isinstance(value, str) or not value:
         raise RuntimeError("invalid release_status in release manifest")
     path = (ROOT / value).resolve()

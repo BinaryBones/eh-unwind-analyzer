@@ -87,6 +87,32 @@ def main() -> int:
             print("validator accepted a timed-out dynamic report", file=sys.stderr)
             return 1
 
+        reports["veh"]["dynamic_validation"]["timed_out"] = False
+        paths["veh"].write_text(json.dumps(reports["veh"]), encoding="utf-8")
+        uef = reports["uef"]["dynamic_validation"]
+        uef.update(uef_hits=0, second_chance_seen=1, target_exit_code=0xE0000003,
+                   events=[{"type": "exception", "exception_code": "0xe0000003",
+                            "first_chance": False}])
+        paths["uef"].write_text(json.dumps(reports["uef"]), encoding="utf-8")
+        if run_validator(paths).returncode != 0:
+            print("validator rejected documented debugger second-chance delivery", file=sys.stderr)
+            return 1
+
+        for field, invalid in (
+            ("uef_set_calls", 0),
+            ("second_chance_seen", 0),
+            ("target_exit_code", 0),
+            ("events", [{"type": "exception", "exception_code": "0xc0000005", "first_chance": False}]),
+            ("events", [{"type": "exception", "exception_code": "0xe0000003", "first_chance": True}]),
+        ):
+            original = uef[field]
+            uef[field] = invalid
+            paths["uef"].write_text(json.dumps(reports["uef"]), encoding="utf-8")
+            if run_validator(paths).returncode == 0:
+                print(f"validator accepted invalid UEF evidence: {field}", file=sys.stderr)
+                return 1
+            uef[field] = original
+
     print("test_dynamic_validator: OK")
     return 0
 

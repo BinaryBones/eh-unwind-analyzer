@@ -17,7 +17,7 @@
             "externalConsole": true,
             "stopAtEntry": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
+            "miDebuggerPath": "gdb",
             "preLaunchTask": "CMake: build debug"
         },
         {

@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-08-29T21:00:00+0300",
   "total_binaries": 84,
-  "pack_root": "/Users/alexander/Desktop/ВКР ГОТОВО/ВКР ПРОЕКТ ОКОНЧЕННЫЙ/ip_full/бинарники на тестирование",
+  "pack_root": ".",
   "rows": [
     {
       "binary": "01_benign_minimal.exe",

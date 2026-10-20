@@ -1,6 +1,9 @@
 @echo off
 setlocal
 
+REM Use the same interpreter as "python -m pip"; PYTHON may override its path.
+if not defined PYTHON set "PYTHON=python"
+
 if "%~1"=="" (
   echo Usage: %~nx0 ^<path-to-eh_unwind_analyzer.exe^>
   exit /b 2
@@ -57,12 +60,7 @@ echo [4/4] Runtime function-table smoke test using %RTL_TARGET%
 "%TOOL%" "%RTL_TARGET%" --heuristics --dynamic --timeout-ms 8000 --trace-steps 0 --json tests\rtl_dynamic_report.json > tests\rtl_dynamic_console.txt 2>&1
 if errorlevel 1 goto :fail
 
-where py >nul 2>nul
-if not errorlevel 1 (
-  py -3 tests\validate_dynamic_reports.py --schema docs\report.schema.json --veh tests\veh_dynamic_report.json --uef tests\uef_dynamic_report.json --vch tests\vch_dynamic_report.json --rtl tests\rtl_dynamic_report.json
-) else (
-  python tests\validate_dynamic_reports.py --schema docs\report.schema.json --veh tests\veh_dynamic_report.json --uef tests\uef_dynamic_report.json --vch tests\vch_dynamic_report.json --rtl tests\rtl_dynamic_report.json
-)
+"%PYTHON%" tests\validate_dynamic_reports.py --schema docs\report.schema.json --veh tests\veh_dynamic_report.json --uef tests\uef_dynamic_report.json --vch tests\vch_dynamic_report.json --rtl tests\rtl_dynamic_report.json
 if errorlevel 1 goto :fail
 
 echo Dynamic smoke validation: OK

@@ -105,6 +105,21 @@ scripts `build_msvc.bat` and `build_mingw.bat` produce
 `build\msvc-local\eh_unwind_analyzer.exe` and
 `build\mingw-local\eh_unwind_analyzer.exe`.
 
+For MinGW on Windows, add its `bin` directory to `PATH` and run from the
+repository root in PowerShell:
+
+```powershell
+python -m pip install -r requirements-validation.txt
+cmake --preset release -DCMAKE_C_COMPILER=gcc
+cmake --build --preset release
+ctest --preset release
+.\build\release\eh_unwind_analyzer.exe .\tests\samples\bin\benign_minimal.exe --heuristics
+```
+
+With MSVC, use an **x64 Native Tools Command Prompt**. In MSYS2 UCRT64,
+install `mingw-w64-ucrt-x86_64-python-jsonschema` with `pacman` for the test
+dependencies; MSYS2 Python uses its own binary packages.
+
 ## Usage
 
 ```sh
@@ -221,6 +236,8 @@ bounded Clang libFuzzer campaign.
 - `tests/unit/`: cross-platform unit tests;
 - `tests/samples/`: reproducible PE32+ regression corpus;
 - `tests/fuzz/`: libFuzzer entry point;
+- `бинарники на тестирование/`: 84 additional synthetic PE fixtures,
+  their source fragments, manifest and expected-behavior descriptions;
 - `ghidra/`: conservative CSV importer;
 - `docs/`: architecture, evidence model, schema and Windows validation;
 - `.github/workflows/ci.yml`: release, sanitizer, coverage, Windows and fuzz

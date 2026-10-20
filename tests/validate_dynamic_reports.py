@@ -39,6 +39,24 @@ def validate_common(report: dict, path: Path) -> None:
     require(report, path, "dynamic_validation.events", lambda v: isinstance(v, list) and v, "non-empty list")
 
 
+def validate_uef_outcome(report: dict, path: Path) -> None:
+    # Windows may route an unhandled exception directly to the debugger instead
+    # of invoking the registered filter. MSVC and MinGW CRTs differ here.
+    # https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-unhandledexceptionfilter
+    dynamic = report["dynamic_validation"]
+    if dynamic.get("uef_hits", 0) > 0:
+        return
+    require(report, path, "dynamic_validation.second_chance_seen", lambda v: v > 0, "> 0")
+    require(report, path, "dynamic_validation.target_exit_code",
+            lambda v: v == 0xE0000003, "UEF fixture exception code 0xE0000003")
+    require(report, path, "dynamic_validation.events", lambda events: any(
+        event.get("type") == "exception"
+        and event.get("exception_code", "").lower() == "0xe0000003"
+        and event.get("first_chance") is False
+        for event in events
+    ), "second-chance event for the UEF fixture exception 0xE0000003")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate Windows dynamic smoke reports")
     parser.add_argument("--veh", type=Path, required=True)
@@ -70,7 +88,6 @@ def main() -> int:
             {
                 "dynamic_validation.exceptions_seen": lambda v: v > 0,
                 "dynamic_validation.uef_set_calls": lambda v: v > 0,
-                "dynamic_validation.uef_hits": lambda v: v > 0,
             },
         ),
         "vch": (
@@ -105,6 +122,8 @@ def main() -> int:
             validate_common(report, path)
             for field, predicate in fields.items():
                 require(report, path, field, predicate, "> 0")
+            if name == "uef":
+                validate_uef_outcome(report, path)
         except ValueError as exc:
             failed = True
             print(f"[FAIL] {name}: {exc}", file=sys.stderr)

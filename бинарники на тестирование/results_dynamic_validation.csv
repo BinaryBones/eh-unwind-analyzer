@@ -1,5 +1,0 @@
-﻿"binary","status","retcode","score","verdict","dyn_ok","exceptions","veh_hits","vch_hits","uef_hits","rtl_add","rtl_install","case_strength"
-"15_dynamic_veh.exe","OK","0","0","no_strong_static_anomalies","True","1","1","0","0","0","0","medium_case"
-"16_dynamic_vch.exe","OK","0","0","no_strong_static_anomalies","True","2","1","1","1","0","0","strong_unconfirmed_case"
-"17_dynamic_uef.exe","OK","0","0","no_strong_static_anomalies","True","2","0","0","1","0","0","strong_unconfirmed_case"
-"18_dynamic_rtl_function_table.exe","OK","0","0","no_strong_static_anomalies","True","0","0","0","0","1","1","weak_case"

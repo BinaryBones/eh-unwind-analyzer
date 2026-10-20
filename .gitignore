@@ -76,6 +76,10 @@ CMakeUserPresets.json
 /бинарники на тестирование/reports_static_extended/
 /бинарники на тестирование/reports_showcase_html/
 /бинарники на тестирование/reports_input_validation/
+/бинарники на тестирование/results_*.csv
+/бинарники на тестирование/summary_extended.json
+/бинарники на тестирование/*.docx
+/бинарники на тестирование/*.pdf
 
 # Personal study and defense materials do not belong in the code repository.
 /обучение и анализ проекта/

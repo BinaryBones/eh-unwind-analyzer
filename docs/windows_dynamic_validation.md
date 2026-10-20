@@ -46,7 +46,7 @@ The script runs four scenarios:
 | Scenario | Required evidence |
 |---|---|
 | VEH | `veh_registrations > 0`, `veh_hits > 0`, exception events |
-| UEF | `uef_set_calls > 0`, `uef_hits > 0`, exception events |
+| UEF | Registration plus a handler hit, or the fixture's second-chance exception and matching exit code |
 | VCH | `vch_registrations > 0`, `vch_hits > 0` |
 | Runtime tables | both runtime function-table APIs observed |
 
@@ -63,6 +63,13 @@ Every report must also satisfy:
 The script writes `tests/*_dynamic_report.json` and
 `tests/*_dynamic_console.txt`.
 
+Under a debugger, Windows can deliver the unhandled exception directly to the
+debugger without calling the registered UEF. The validator accepts this only
+when registration is observed, a second-chance `0xE0000003` event is recorded,
+and the process exits with that exact fixture exception code. This accounts
+for MSVC/MinGW runtime differences; a missing hit alone is not a passing result.
+See [Microsoft's UnhandledExceptionFilter contract](https://learn.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-unhandledexceptionfilter).
+
 ## Manual Checks
 
 Inspect each JSON report for:
@@ -78,33 +85,22 @@ Inspect each JSON report for:
 Timeout, context access, breakpoint re-arm or process continuation failures
 must produce a non-zero tool exit code and `dynamic_validation.ok == false`.
 
-## Current Evidence
+## Evidence And CI
 
-The current MinGW-w64 release-candidate evidence was collected on
-**June 8, 2026** from the final dynamic collector revision:
+The Windows MSVC job in GitHub Actions builds the synthetic smoke targets,
+runs all four scenarios and uploads their JSON reports and console logs.
+Check the workflow run for the commit being delivered. Local smoke results
+are written under `tests/` and are excluded from Git.
 
-- analyzer SHA-256:
-  `489e7571827693cd555c1958f9aec7694d1de717f896d33ecfebe8f13e843624`;
-- 124/124 reports passed JSON Schema and semantic validation;
-- 86 dynamic sessions started;
-- all four VEH, VCH, UEF and runtime function-table smoke scenarios passed;
-- no dynamic events were dropped;
-- the configured 32-address trace budget was respected;
-- controlled timeout cases returned within the documented cleanup window.
-
-The complete evidence set is stored in
-`reports/dynamic_validation_2026-06-08/`. The machine-readable summary is
-`full/results.json`; the human-readable reports are `full/REPORT.md` and
-`FINAL_REPORT_RU.docx`.
-
-The archived evidence can be revalidated without executing any target:
+Older June 2026 corpus summaries describe earlier revisions. Their report
+files are not distributed with this source repository and do not validate the
+current build. To validate a separately retained corpus, provide its directory
+and the schema that was used to create it explicitly:
 
 ```sh
 python3 tests/validate_dynamic_corpus_evidence.py \
+  --evidence path/to/evidence/full \
+  --schema path/to/matching/report.schema.json \
   --synthetic-root "бинарники на тестирование/бинарники" \
   --real-root real_samples/inbox
 ```
-
-The June evidence covers MinGW-w64 on Windows x64. The MSVC job remains an
-independent compiler gate in CI and must pass for a final multi-toolchain
-release.

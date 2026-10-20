@@ -130,10 +130,20 @@ jobs:
           -DCMAKE_BUILD_TYPE=Release
           -DBUILD_TESTING=ON
           -DEHUA_WARNINGS_AS_ERRORS=ON
+          -DPython3_EXECUTABLE="$(cygpath -m "$(command -v python)")"
       - name: Build MinGW
         run: cmake --build build/mingw --parallel
       - name: Test MinGW
         run: ctest --test-dir build/mingw --output-on-failure
+      - name: Report MinGW test failures
+        if: failure()
+        shell: pwsh
+        run: |
+          $log = 'build/mingw/Testing/Temporary/LastTest.log'
+          if (Test-Path -LiteralPath $log) {
+            $details = (Get-Content -LiteralPath $log -Raw).Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+            Write-Output "::error title=MinGW CTest log::$details"
+          }
 
   libfuzzer:
     name: Linux Clang libFuzzer

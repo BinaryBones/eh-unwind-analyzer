@@ -77,6 +77,14 @@ CMakeUserPresets.json
 /бинарники на тестирование/reports_showcase_html/
 /бинарники на тестирование/reports_input_validation/
 
-# Separate study projects; preserve locally, exclude from this repository.
-/docs/ru/пэт/
-/docs/ru/beauty_crm_reference_source/
+# Personal study and defense materials do not belong in the code repository.
+/обучение и анализ проекта/
+/book_source/
+/docs/ru/
+/tests/*book*.py
+/tests/generate_binary_coverage_doc.py
+/tests/generate_competition_appendix.py
+/tests/generate_docs_for_defense.py
+/scripts/append_metrics_to_features_pdf.py
+/scripts/generate_my_repetition_book.py
+/scripts/generate_ru_theory_second_edition.py

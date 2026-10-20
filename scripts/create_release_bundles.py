@@ -25,7 +25,6 @@ ZIP_TIME = (2026, 6, 8, 0, 0, 0)
 SOURCE_DIRS = (
     ".github",
     ".vscode",
-    "book_source",
     "docs",
     "examples",
     "ghidra",
@@ -37,7 +36,6 @@ SOURCE_DIRS = (
     "бинарники на тестирование",
 )
 SOURCE_FILES = (
-    "AUDIT_INVESTOR_READINESS_RU.md",
     ".gitignore",
     ".gitattributes",
     "CHANGELOG.md",
@@ -45,7 +43,6 @@ SOURCE_FILES = (
     "CMakePresets.json",
     "CONTRIBUTING.md",
     "LICENSE",
-    "PATCH_NOTES.md",
     "README.md",
     "real_samples/SOURCES.md",
     "requirements-validation.txt",
@@ -55,7 +52,6 @@ SOURCE_FILES = (
     "requirements-dev.txt",
 )
 CUSTOMER_FILES = (
-    "AUDIT_INVESTOR_READINESS_RU.md",
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
@@ -67,22 +63,11 @@ CUSTOMER_FILES = (
     "docs/report.schema.json",
     "docs/threshold_calibration.md",
     "docs/windows_dynamic_validation.md",
-    "docs/ru/EH_Unwind_Analyzer_Защита_проекта.pdf",
-    "docs/ru/EH_Unwind_Analyzer_Паспорт_проекта_для_презентации.pdf",
-    "docs/ru/EH_Unwind_Analyzer_Полное_руководство_по_признакам_и_эвристикам.pdf",
-    "docs/ru/EH_Unwind_Analyzer_Строгий_учебный_курс.md",
-    "docs/ru/EH_Unwind_Analyzer_Строгий_учебный_курс.pdf",
-    "docs/ru/преза/EH_Unwind_Analyzer_Техническая_презентация_1.0.0_RU.pptx",
-    "docs/ru/преза/EH_Unwind_Analyzer_Техническое_описание_1.0.0_RU.md",
-    "docs/ru/преза/EH_Unwind_Analyzer_Техническое_описание_1.0.0_RU.pdf",
-    "docs/ru/теория 2/EH_Unwind_Analyzer_Теоретическая_база_с_нуля_RU.pdf",
     "examples/sample_cmds.txt",
     "ghidra/import_unwind_csv.py",
     "release/VERIFIED_WINDOWS_BUILD.json",
 )
-CUSTOMER_DIRS = (
-    "docs/ru",
-)
+CUSTOMER_DIRS: tuple[str, ...] = ()
 EVIDENCE_SUPPORT_FILES = (
     "release/VERIFIED_WINDOWS_BUILD.json",
     "docs/report.schema.json",
@@ -126,8 +111,9 @@ def allowed(path: Path) -> bool:
     if "__pycache__" in path.parts or ".pytest_cache" in path.parts:
         return False
     excluded_trees = (
-        ROOT / "docs" / "ru" / "пэт",
-        ROOT / "docs" / "ru" / "beauty_crm_reference_source",
+        ROOT / "docs" / "ru",
+        ROOT / "book_source",
+        ROOT / "обучение и анализ проекта",
         ROOT / "бинарники на тестирование" / "reports_static_extended",
         ROOT / "бинарники на тестирование" / "reports_showcase_html",
         ROOT / "бинарники на тестирование" / "reports_input_validation",

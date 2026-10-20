@@ -1,3 +1,0 @@
-begin_rva,end_rva,name,comment
-0x00001000,0x0000100C,sub_00001000,UNWIND v1 flags=0 prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-]
-0x0000100C,0x0000101C,sub_0000100C,UNWIND v1 flags=0 prolog=4 stack=40B frame=-+0 saved_gp=[-] saved_xmm=[-]

@@ -1,4 +1,0 @@
-begin_rva,end_rva,name,comment
-0x00001000,0x00001010,sub_00001000,UNWIND v1 flags=EHANDLER prolog=0 stack=0B frame=-+0 saved_gp=[-] saved_xmm=[-] handler_rva=0x00005000
-0x00001010,0x00001029,sub_00001010,UNWIND parse failed: Unsupported UNWIND_INFO version.
-0x00001029,0x00001040,sub_00001029,UNWIND v1 flags=0 prolog=4 stack=40B frame=-+0 saved_gp=[-] saved_xmm=[-]

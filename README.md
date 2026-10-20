@@ -9,6 +9,9 @@ exception evidence through the Windows Debug API.
 Current release: **1.0.0**. Static analysis is cross-platform. Dynamic
 validation is Windows x64 only.
 
+The analyzer is implemented in **C17**. Python is used for test fixtures,
+report validation, regression tests, the Ghidra importer and release packaging.
+
 ## What It Does
 
 ### Static analysis
@@ -252,9 +255,3 @@ the release checklist.
 
 MIT, see [`LICENSE`](LICENSE).
 
-## GitHub Preparation
-
-See [`docs/GITHUB_PREPARATION_RU.md`](docs/GITHUB_PREPARATION_RU.md) for
-Windows setup, repository contents, publishing steps and the verification
-performed on 2026-10-20. Historical Windows binaries and June validation
-evidence are kept locally; build the current sources for report schema 1.3.0.

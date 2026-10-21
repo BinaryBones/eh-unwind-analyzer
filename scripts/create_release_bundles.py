@@ -33,7 +33,6 @@ SOURCE_DIRS = (
     "scripts",
     "src",
     "tests",
-    "бинарники на тестирование",
 )
 SOURCE_FILES = (
     ".gitignore",
@@ -116,13 +115,13 @@ def allowed(path: Path) -> bool:
         ROOT / "docs" / "ru",
         ROOT / "book_source",
         ROOT / "обучение и анализ проекта",
-        ROOT / "бинарники на тестирование" / "reports_static_extended",
-        ROOT / "бинарники на тестирование" / "reports_showcase_html",
-        ROOT / "бинарники на тестирование" / "reports_input_validation",
+        ROOT / "tests" / "fixtures" / "pe" / "reports_static_extended",
+        ROOT / "tests" / "fixtures" / "pe" / "reports_showcase_html",
+        ROOT / "tests" / "fixtures" / "pe" / "reports_input_validation",
     )
     if any(tree in path.parents for tree in excluded_trees):
         return False
-    if path.parent == ROOT / "бинарники на тестирование" and (
+    if path.parent == ROOT / "tests" / "fixtures" / "pe" and (
         path.suffix.lower() in {".docx", ".pdf"}
         or (path.name.startswith("results_") and path.suffix == ".csv")
         or path.name == "summary_extended.json"

@@ -124,12 +124,12 @@ def html_text(raw: str) -> str:
 
 def report_pairs(root: Path) -> list[tuple[Path, Path]]:
     pairs: list[tuple[Path, Path]] = []
-    extended = root / "бинарники на тестирование" / "reports_static_extended"
+    extended = root / "build" / "corpus-reports"
     for json_path in sorted((extended / "json").glob("*.json")):
         html_path = extended / "html" / (json_path.stem + ".html")
         if html_path.exists():
             pairs.append((json_path, html_path))
-    showcase = root / "бинарники на тестирование" / "reports_showcase_html"
+    showcase = root / "reports" / "showcase"
     for json_path in sorted(showcase.glob("*.json")):
         html_path = json_path.with_suffix(".html")
         if html_path.exists():

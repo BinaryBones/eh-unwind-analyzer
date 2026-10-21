@@ -16,8 +16,8 @@ IMAGE_SCN_MEM_WRITE = 0x80000000
 THIS_DIR = Path(__file__).resolve().parent
 SRC_DIR = THIS_DIR / "src"
 PROJECT_ROOT = THIS_DIR.parents[1]
-PACK_ROOT = PROJECT_ROOT / "бинарники на тестирование"
-BIN_ROOT = PACK_ROOT / "бинарники"
+PACK_ROOT = PROJECT_ROOT / "tests" / "fixtures" / "pe"
+BIN_ROOT = PACK_ROOT
 STATIC_BIN = BIN_ROOT / "static"
 DYNAMIC_BIN = BIN_ROOT / "dynamic"
 

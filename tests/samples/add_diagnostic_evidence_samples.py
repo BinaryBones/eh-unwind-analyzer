@@ -9,10 +9,10 @@ from pathlib import Path
 
 THIS_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = THIS_DIR.parents[1]
-PACK_ROOT = PROJECT_ROOT / "бинарники на тестирование"
-STATIC_BIN = PACK_ROOT / "бинарники" / "static"
-MATRIX_CSV = PACK_ROOT / "матрица_покрытия_бинарников.csv"
-MANIFEST_JSON = PACK_ROOT / "manifest_extended.json"
+PACK_ROOT = PROJECT_ROOT / "tests" / "fixtures" / "pe"
+STATIC_BIN = PACK_ROOT / "static"
+MATRIX_CSV = PACK_ROOT / "coverage.csv"
+MANIFEST_JSON = PACK_ROOT / "manifest.json"
 
 BASE = STATIC_BIN / "02_benign_richer.exe"
 
@@ -197,7 +197,7 @@ def sample_row(sample: dict) -> dict:
         "target_signals": sample["target_signals"],
         "heuristic_family_or_mode": sample["heuristic_family_or_mode"],
         "category": "static",
-        "path": f"бинарники/static/{sample['binary']}",
+        "path": f"static/{sample['binary']}",
         "primary_expected_findings": sample["primary_expected_findings"],
         "secondary_expected_findings": "",
         "what_is_broken": sample["what_is_broken"],

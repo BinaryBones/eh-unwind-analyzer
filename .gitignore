@@ -22,8 +22,8 @@ __pycache__/
 *.ilk
 *.exe
 !tests/samples/bin/*.exe
+!tests/fixtures/pe/**/*.exe
 # These PE files are intentional regression fixtures, not build outputs.
-!/бинарники на тестирование/бинарники/**/*.exe
 *.dll
 *.pyd
 *.so
@@ -73,18 +73,10 @@ CMakeUserPresets.json
 
 # Historical validation outputs stay available locally.
 /reports/
-/бинарники на тестирование/reports_static_extended/
-/бинарники на тестирование/reports_showcase_html/
-/бинарники на тестирование/reports_input_validation/
-/бинарники на тестирование/results_*.csv
-/бинарники на тестирование/summary_extended.json
-/бинарники на тестирование/*.docx
-/бинарники на тестирование/*.pdf
 
 # Obsolete local release evidence and duplicated defense handouts.
 /release/VERIFIED_WINDOWS_BUILD.json
 /release/RELEASE_STATUS*.md
-/бинарники на тестирование/описания/
 
 # Personal study and defense materials do not belong in the code repository.
 /обучение и анализ проекта/
@@ -97,3 +89,6 @@ CMakeUserPresets.json
 /scripts/append_metrics_to_features_pdf.py
 /scripts/generate_my_repetition_book.py
 /scripts/generate_ru_theory_second_edition.py
+
+# Former local corpus/report directory; published fixtures live under tests/.
+/бинарники на тестирование/

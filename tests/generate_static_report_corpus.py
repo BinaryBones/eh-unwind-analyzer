@@ -14,8 +14,8 @@ from report_semantics import validate_report_semantics
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_BINARY_ROOT = ROOT / "бинарники на тестирование" / "бинарники"
-DEFAULT_OUTPUT_ROOT = ROOT / "бинарники на тестирование" / "reports_static_extended"
+DEFAULT_BINARY_ROOT = ROOT / "tests" / "fixtures" / "pe"
+DEFAULT_OUTPUT_ROOT = ROOT / "build" / "corpus-reports"
 REPORT_SCHEMA = ROOT / "docs" / "report.schema.json"
 INPUT_VALIDATION_SCHEMA = ROOT / "docs" / "input-validation-report.schema.json"
 

@@ -99,6 +99,6 @@ the matching report schema explicitly:
 python3 tests/validate_dynamic_corpus_evidence.py \
   --evidence path/to/evidence/full \
   --schema path/to/matching/report.schema.json \
-  --synthetic-root "бинарники на тестирование/бинарники" \
+  --synthetic-root tests/fixtures/pe \
   --real-root real_samples/inbox
 ```

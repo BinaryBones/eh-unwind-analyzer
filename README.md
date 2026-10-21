@@ -231,7 +231,7 @@ repository hygiene. CI additionally builds with MSVC and MinGW, runs four
 Windows dynamic smoke scenarios, generates coverage artifacts and executes a
 bounded Clang libFuzzer campaign. Ubuntu Release also validates static reports
 for all 84 extended fixtures; see the
-[corpus guide](бинарники%20на%20тестирование/README_БИНАРНИКИ_НА_ТЕСТИРОВАНИЕ.md).
+[corpus guide](tests/fixtures/pe/README.md).
 
 ## Project Layout
 
@@ -239,7 +239,7 @@ for all 84 extended fixtures; see the
 - `tests/unit/`: cross-platform unit tests;
 - `tests/samples/`: reproducible PE32+ regression corpus;
 - `tests/fuzz/`: libFuzzer entry point;
-- `бинарники на тестирование/`: 84 additional synthetic PE fixtures,
+- `tests/fixtures/pe/`: 84 additional synthetic PE fixtures,
   their source fragments, manifest and coverage matrix;
 - `ghidra/`: conservative CSV importer;
 - `docs/`: architecture, evidence model, schema and Windows validation;

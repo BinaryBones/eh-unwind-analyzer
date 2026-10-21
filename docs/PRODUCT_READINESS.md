@@ -28,11 +28,11 @@ and Linux Clang libFuzzer. Check the result for the exact commit being delivered
 A local test run does not replace these platform-specific checks.
 
 The additional 84-file synthetic corpus is described in
-`бинарники на тестирование/manifest_extended.json`. It includes malformed inputs
+`tests/fixtures/pe/manifest.json`. It includes malformed inputs
 that must be rejected cleanly as well as Windows dynamic scenarios. Third-party
 real-world samples are optional local inputs and are not redistributed.
 Ubuntu Release CI validates reports for all 84 synthetic inputs in addition
-to CTest. See the [corpus guide](../бинарники%20на%20тестирование/README_БИНАРНИКИ_НА_ТЕСТИРОВАНИЕ.md).
+to CTest. See the [corpus guide](../tests/fixtures/pe/README.md).
 
 ## Packaging
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
+"""Rebuild only extended-corpus samples 01-18 using a Windows toolchain."""
 from __future__ import annotations
 
-import csv
 import shutil
 import struct
 import subprocess
@@ -20,7 +20,6 @@ PACK_ROOT = PROJECT_ROOT / "бинарники на тестирование"
 BIN_ROOT = PACK_ROOT / "бинарники"
 STATIC_BIN = BIN_ROOT / "static"
 DYNAMIC_BIN = BIN_ROOT / "dynamic"
-MATRIX_CSV = PACK_ROOT / "матрица_покрытия_бинарников.csv"
 
 CLANG = shutil.which("clang") or "/usr/local/swift/usr/bin/clang"
 LLD = shutil.which("lld-link") or "/usr/local/swift/usr/bin/lld-link"
@@ -283,10 +282,11 @@ def save_variant(src_path: Path, dst_path: Path, patcher: Callable[[bytearray, d
 
 
 def compile_static(src: Path, out: Path) -> None:
+    # Mutations need unwind entries for all three baseline functions, including leaves.
     out.parent.mkdir(parents=True, exist_ok=True)
     if tool_available(CLANG) and tool_available(LLD):
         obj = out.with_suffix(".obj")
-        run([CLANG, "--target=" + TARGET, "-O1", "-c", str(src), "-o", str(obj)])
+        run([CLANG, "--target=" + TARGET, "-O0", "-funwind-tables", "-c", str(src), "-o", str(obj)])
         run([LLD, "/entry:start", "/subsystem:console", "/nodefaultlib", "/out:" + str(out), str(obj)])
         if obj.exists():
             obj.unlink()
@@ -296,7 +296,8 @@ def compile_static(src: Path, out: Path) -> None:
             [
                 GCC,
                 "-std=c17",
-                "-O1",
+                "-O0",
+                "-funwind-tables",
                 "-ffreestanding",
                 "-nostdlib",
                 "-Wl,-e,start",
@@ -400,44 +401,15 @@ def build_pack() -> None:
     compile_dynamic(SRC_DIR / "dyn_rtl_ftable.c", DYNAMIC_BIN / "18_dynamic_rtl_function_table.exe")
 
 
-def write_matrix() -> None:
-    rows = [
-        ("01_benign_minimal.exe", "baseline clean", "no findings, score=0"),
-        ("02_benign_richer.exe", "baseline clean", "no findings, score=0"),
-        ("03_static_unwind_oob_parse_fail.exe", "unwind_rva_oob + unwind_parse_fail", "table_integrity + unwind_integrity"),
-        ("04_static_invalid_ranges.exe", "invalid_ranges", "table_integrity"),
-        ("05_static_rf_oob.exe", "rf_oob", "table_integrity"),
-        ("06_static_unsorted_overlap_duplicate.exe", "rf_unsorted + rf_overlaps + duplicate_begin", "table_integrity"),
-        ("07_static_unwind_bad_opcode.exe", "unwind_anomalies (bad opcode)", "unwind_integrity"),
-        ("08_static_unwind_bad_operands.exe", "unwind_anomalies (bad operand)", "unwind_integrity"),
-        ("09_static_unwind_unusual_section.exe", "unwind_unusual_section", "metadata_placement"),
-        ("10_static_unwind_exec_handler_nonexec.exe", "unwind_in_exec_section + handler_nonexec_section + combo", "metadata_placement"),
-        ("11_static_unwind_writable_only.exe", "unwind_writable_section", "metadata_placement"),
-        ("12_static_writable_metadata_handler_writable.exe", "unwind_writable_section + handler_writable_section + combo", "metadata_placement"),
-        ("13_static_placement_integrity_combo.exe", "placement_integrity_combo", "unwind_integrity + metadata_placement"),
-        ("14_static_reuse_dominance_combo.exe", "unwind_reuse_* + handler_dominance + reuse_dominance_combo", "unwind_reuse + handler_dominance"),
-        ("15_dynamic_veh.exe", "veh_registrations/veh_hits", "dynamic"),
-        ("16_dynamic_vch.exe", "vch_registrations/vch_hits", "dynamic"),
-        ("17_dynamic_uef.exe", "uef_set_calls/uef_hits + first/second chance", "dynamic"),
-        ("18_dynamic_rtl_function_table.exe", "rtl_add_function_table_calls / rtl_install_function_table_cb_calls", "dynamic"),
-    ]
-    with MATRIX_CSV.open("w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
-        w.writerow(["binary", "target_signals", "heuristic_family_or_mode"])
-        w.writerows(rows)
-
-
 def main() -> int:
     try:
         build_pack()
-        write_matrix()
     except Exception as e:
         print(f"[FAIL] {e}", file=sys.stderr)
         return 1
-    print("[OK] full test pack generated")
+    print("[OK] baseline samples 01-18 generated; extended manifest/matrix preserved")
     print(f"[OK] static binaries: {STATIC_BIN}")
     print(f"[OK] dynamic binaries: {DYNAMIC_BIN}")
-    print(f"[OK] coverage matrix: {MATRIX_CSV}")
     return 0
 
 

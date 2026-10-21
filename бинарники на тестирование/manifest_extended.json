@@ -13,7 +13,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Нет повреждения; минимальный корректный PE x64.",
       "project_stage_demonstrated": "Baseline",
-      "defense_comment": "Показывает, что анализатор не обязан находить тревогу в каждом файле.",
       "run_mode": "static --heuristics"
     },
     {
@@ -26,7 +25,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Нет повреждения; чуть более богатый корректный PE x64.",
       "project_stage_demonstrated": "Baseline",
-      "defense_comment": "Контрольный образец для сравнения с поврежденными вариантами.",
       "run_mode": "static --heuristics"
     },
     {
@@ -39,7 +37,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "UnwindInfoRVA указывает за пределы образа.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION -> UNWIND_INFO",
-      "defense_comment": "Показывает связь ошибки адреса metadata с невозможностью разобрать UNWIND_INFO.",
       "run_mode": "static --heuristics"
     },
     {
@@ -52,7 +49,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "В RUNTIME_FUNCTION EndAddress <= BeginAddress.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION",
-      "defense_comment": "Проверка базовой целостности диапазона функции.",
       "run_mode": "static --heuristics"
     },
     {
@@ -65,7 +61,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Begin/End выходят за SizeOfImage.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION",
-      "defense_comment": "Показывает контроль границ RVA функции.",
       "run_mode": "static --heuristics"
     },
     {
@@ -78,7 +73,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Таблица не отсортирована, диапазоны пересекаются, BeginAddress повторяется.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION table",
-      "defense_comment": "Хороший демонстрационный файл для ручной проверки .pdata.",
       "run_mode": "static --heuristics"
     },
     {
@@ -91,7 +85,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "В UNWIND_CODE внедрен некорректный opcode.",
       "project_stage_demonstrated": "UNWIND_INFO",
-      "defense_comment": "Показывает, что проект декодирует внутренность UNWIND_INFO, а не только адреса.",
       "run_mode": "static --heuristics"
     },
     {
@@ -104,7 +97,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Некорректные операнды/поля UNWIND_INFO.",
       "project_stage_demonstrated": "UNWIND_INFO",
-      "defense_comment": "Демонстрирует semantic sanity checks.",
       "run_mode": "static --heuristics"
     },
     {
@@ -117,7 +109,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Секция unwind metadata переименована в необычную.",
       "project_stage_demonstrated": "Metadata placement",
-      "defense_comment": "Показывает проверку расположения metadata.",
       "run_mode": "static --heuristics"
     },
     {
@@ -130,7 +121,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "UNWIND_INFO в executable-секции, handler в non-exec.",
       "project_stage_demonstrated": "Placement combo",
-      "defense_comment": "Комбинация сильнее одиночного сигнала.",
       "run_mode": "static --heuristics"
     },
     {
@@ -143,7 +133,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Секция UNWIND_INFO сделана writable.",
       "project_stage_demonstrated": "Metadata permissions",
-      "defense_comment": "Показывает риск изменяемой metadata.",
       "run_mode": "static --heuristics"
     },
     {
@@ -156,7 +145,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Metadata и handler находятся в writable-областях.",
       "project_stage_demonstrated": "Placement combo",
-      "defense_comment": "Сильный пример взаимного усиления признаков.",
       "run_mode": "static --heuristics"
     },
     {
@@ -169,7 +157,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Размещение metadata подозрительное и дополнительно поврежден UnwindInfoRVA.",
       "project_stage_demonstrated": "Cross-family combo",
-      "defense_comment": "Показывает корреляцию placement и integrity.",
       "run_mode": "static --heuristics"
     },
     {
@@ -182,7 +169,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Массовое reuse одного UnwindInfoRVA и один доминирующий handler.",
       "project_stage_demonstrated": "Statistical patterns",
-      "defense_comment": "Показывает эвристику массового паттерна.",
       "run_mode": "static --heuristics"
     },
     {
@@ -195,7 +181,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Программа регистрирует VEH и вызывает исключение.",
       "project_stage_demonstrated": "Dynamic validation",
-      "defense_comment": "Проверяется только на Windows с --dynamic.",
       "run_mode": "dynamic --timeout-ms"
     },
     {
@@ -208,7 +193,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Программа регистрирует VCH/UEF и вызывает исключение.",
       "project_stage_demonstrated": "Dynamic validation",
-      "defense_comment": "Проверяется только на Windows с --dynamic.",
       "run_mode": "dynamic --timeout-ms"
     },
     {
@@ -221,7 +205,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Программа устанавливает UEF и вызывает исключение.",
       "project_stage_demonstrated": "Dynamic validation",
-      "defense_comment": "Показывает runtime exception flow.",
       "run_mode": "dynamic --timeout-ms"
     },
     {
@@ -234,7 +217,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Программа вызывает Rtl*FunctionTable API.",
       "project_stage_demonstrated": "Dynamic validation",
-      "defense_comment": "Показывает JIT/runtime function table activity.",
       "run_mode": "dynamic --timeout-ms"
     },
     {
@@ -247,7 +229,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Динамический RTL-сэмпл с поврежденным статическим UnwindInfoRVA.",
       "project_stage_demonstrated": "Static/dynamic correlation",
-      "defense_comment": "Показывает, что статическая аномалия и runtime-сигнал могут жить в одном файле.",
       "run_mode": "static + Windows dynamic"
     },
     {
@@ -260,7 +241,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Динамический UEF-сэмпл с поврежденным статическим UnwindInfoRVA.",
       "project_stage_demonstrated": "Static/dynamic correlation",
-      "defense_comment": "Показывает смешанный сценарий защиты.",
       "run_mode": "static + Windows dynamic"
     },
     {
@@ -273,7 +253,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "У .bss искусственно задан raw range за концом файла.",
       "project_stage_demonstrated": "PE section table",
-      "defense_comment": "Первый слой: проверка raw-границ секций.",
       "run_mode": "static --heuristics"
     },
     {
@@ -286,7 +265,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "RawSize .xdata сделан больше файла.",
       "project_stage_demonstrated": "PE section table",
-      "defense_comment": "Показывает, что даже нужная metadata-секция проверяется по file size.",
       "run_mode": "static --heuristics"
     },
     {
@@ -299,7 +277,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "VirtualSize .bss выходит за SizeOfImage.",
       "project_stage_demonstrated": "PE image layout",
-      "defense_comment": "Контроль границ образа в RVA-пространстве.",
       "run_mode": "static --heuristics"
     },
     {
@@ -312,7 +289,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "VirtualSize .xdata выходит за SizeOfImage.",
       "project_stage_demonstrated": "PE image layout",
-      "defense_comment": "Показывает повреждение layout вокруг unwind metadata.",
       "run_mode": "static --heuristics"
     },
     {
@@ -325,7 +301,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Raw range .bss пересекается с .text.",
       "project_stage_demonstrated": "PE section table",
-      "defense_comment": "Проверка неоднозначного file offset mapping.",
       "run_mode": "static --heuristics"
     },
     {
@@ -338,7 +313,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "RVA range .bss пересекается с .xdata.",
       "project_stage_demonstrated": "PE image layout",
-      "defense_comment": "Проверка неоднозначного RVA mapping.",
       "run_mode": "static --heuristics"
     },
     {
@@ -351,7 +325,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "FileAlignment выставлен в некорректное значение.",
       "project_stage_demonstrated": "PE optional header",
-      "defense_comment": "Показывает проверку alignment-правил PE.",
       "run_mode": "static --heuristics"
     },
     {
@@ -364,7 +337,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "ImageBase сделан не кратным 64K.",
       "project_stage_demonstrated": "PE optional header",
-      "defense_comment": "Показывает sanity check базового адреса образа.",
       "run_mode": "static --heuristics"
     },
     {
@@ -377,7 +349,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Exception Directory RVA за пределами SizeOfImage.",
       "project_stage_demonstrated": "Exception Directory",
-      "defense_comment": "Проверка входа в .pdata.",
       "run_mode": "static --heuristics"
     },
     {
@@ -390,7 +361,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Exception Directory size не кратен 12 байтам RUNTIME_FUNCTION.",
       "project_stage_demonstrated": "Exception Directory",
-      "defense_comment": "Показывает проверку размера таблицы.",
       "run_mode": "static --heuristics"
     },
     {
@@ -403,7 +373,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Exception Directory size меньше одной записи RUNTIME_FUNCTION.",
       "project_stage_demonstrated": "Exception Directory",
-      "defense_comment": "Проверяет неполную директорию.",
       "run_mode": "static --heuristics"
     },
     {
@@ -416,7 +385,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "RVA=0 при ненулевом размере Exception Directory.",
       "project_stage_demonstrated": "Exception Directory",
-      "defense_comment": "Проверка согласованности пары RVA/Size.",
       "run_mode": "static --heuristics"
     },
     {
@@ -429,7 +397,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Exception Directory обнулена при наличии executable-секции.",
       "project_stage_demonstrated": "Exception Directory",
-      "defense_comment": "Показывает leaf-only ambiguity и manual review.",
       "run_mode": "static --heuristics"
     },
     {
@@ -442,7 +409,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "EndAddress равен BeginAddress.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION",
-      "defense_comment": "Нулевой диапазон функции.",
       "run_mode": "static --heuristics"
     },
     {
@@ -455,7 +421,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "EndAddress меньше BeginAddress.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION",
-      "defense_comment": "Отрицательный диапазон функции.",
       "run_mode": "static --heuristics"
     },
     {
@@ -468,7 +433,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Begin/End вынесены за SizeOfImage.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION",
-      "defense_comment": "Адрес функции вне образа.",
       "run_mode": "static --heuristics"
     },
     {
@@ -481,7 +445,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "EndAddress выходит за SizeOfImage.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION",
-      "defense_comment": "Хвост функции выходит за образ.",
       "run_mode": "static --heuristics"
     },
     {
@@ -494,7 +457,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "UnwindInfoAddress равен нулю.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION -> UNWIND_INFO",
-      "defense_comment": "Нулевой RVA metadata.",
       "run_mode": "static --heuristics"
     },
     {
@@ -507,7 +469,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "UnwindInfoAddress выходит за SizeOfImage.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION -> UNWIND_INFO",
-      "defense_comment": "Адрес metadata вне образа.",
       "run_mode": "static --heuristics"
     },
     {
@@ -520,7 +481,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Записи RUNTIME_FUNCTION переставлены не по BeginAddress без пересечения.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION table",
-      "defense_comment": "Показывает отдельную проверку сортировки.",
       "run_mode": "static --heuristics"
     },
     {
@@ -533,7 +493,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Диапазоны функций пересекаются.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION table",
-      "defense_comment": "Проверка перекрытия функций.",
       "run_mode": "static --heuristics"
     },
     {
@@ -546,7 +505,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Две записи имеют одинаковый BeginAddress.",
       "project_stage_demonstrated": "RUNTIME_FUNCTION table",
-      "defense_comment": "Повтор начала функции; часто сопровождается overlap.",
       "run_mode": "static --heuristics"
     },
     {
@@ -559,20 +517,18 @@
       "secondary_expected_findings": "",
       "what_is_broken": "UNWIND_INFO version выставлена в неподдерживаемое значение.",
       "project_stage_demonstrated": "UNWIND_INFO",
-      "defense_comment": "Проверка версии структуры.",
       "run_mode": "static --heuristics"
     },
     {
       "binary": "44_static_unwind_truncated_codes.exe",
-      "target_signals": "unwind_parse_fail",
+      "target_signals": "unwind_anomalies",
       "heuristic_family_or_mode": "unwind_integrity",
       "category": "static",
       "path": "бинарники/static/44_static_unwind_truncated_codes.exe",
-      "primary_expected_findings": "unwind_parse_fail",
+      "primary_expected_findings": "unwind_anomalies",
       "secondary_expected_findings": "",
-      "what_is_broken": "CountOfCodes завышен, данных не хватает.",
+      "what_is_broken": "CountOfCodes завышен; структура остается в пределах секции, поэтому проект фиксирует unwind anomaly.",
       "project_stage_demonstrated": "UNWIND_INFO",
-      "defense_comment": "Обрезанная структура unwind-кодов.",
       "run_mode": "static --heuristics"
     },
     {
@@ -585,7 +541,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "CodeOffset больше PrologSize.",
       "project_stage_demonstrated": "UNWIND_INFO",
-      "defense_comment": "Семантическая аномалия внутри unwind op.",
       "run_mode": "static --heuristics"
     },
     {
@@ -598,7 +553,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "CodeOffset идет в неправильном порядке.",
       "project_stage_demonstrated": "UNWIND_INFO",
-      "defense_comment": "Проверка порядка unwind-кодов.",
       "run_mode": "static --heuristics"
     },
     {
@@ -611,7 +565,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "UWOP_ALLOC_LARGE получил недопустимый opinfo.",
       "project_stage_demonstrated": "UNWIND_INFO",
-      "defense_comment": "Проверка opcode/operand model.",
       "run_mode": "static --heuristics"
     },
     {
@@ -624,7 +577,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "FrameRegister задан без UWOP_SET_FPREG.",
       "project_stage_demonstrated": "UNWIND_INFO",
-      "defense_comment": "Проверка согласованности frame-регистра.",
       "run_mode": "static --heuristics"
     },
     {
@@ -637,7 +589,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Одновременно выставлены CHAININFO и EHANDLER.",
       "project_stage_demonstrated": "UNWIND_INFO",
-      "defense_comment": "Проверка взаимоисключающих flags.",
       "run_mode": "static --heuristics"
     },
     {
@@ -650,7 +601,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "CHAININFO указывает сам на себя.",
       "project_stage_demonstrated": "UNWIND_INFO chain",
-      "defense_comment": "Проверка loop detection при follow-chain.",
       "run_mode": "static --heuristics"
     },
     {
@@ -663,7 +613,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "EHANDLER указывает за пределы образа.",
       "project_stage_demonstrated": "UNWIND_INFO handler",
-      "defense_comment": "Проверка handler RVA.",
       "run_mode": "static --heuristics"
     },
     {
@@ -676,7 +625,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "EHANDLER указывает в .rdata.",
       "project_stage_demonstrated": "Handler placement",
-      "defense_comment": "Handler находится не в исполняемой секции.",
       "run_mode": "static --heuristics"
     },
     {
@@ -689,7 +637,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "EHANDLER указывает в секцию с WRITE+EXECUTE.",
       "project_stage_demonstrated": "Handler placement",
-      "defense_comment": "Показывает отдельный writable handler target.",
       "run_mode": "static --heuristics"
     },
     {
@@ -702,7 +649,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Секция .xdata помечена executable.",
       "project_stage_demonstrated": "Metadata permissions",
-      "defense_comment": "UNWIND_INFO лежит в executable memory.",
       "run_mode": "static --heuristics"
     },
     {
@@ -715,7 +661,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Секция .xdata переименована в myxdata, имя все еще plausibly unwind-named.",
       "project_stage_demonstrated": "Mitigation / false-positive control",
-      "defense_comment": "Показывает, что не любое переименование считается аномалией.",
       "run_mode": "static --heuristics"
     },
     {
@@ -728,7 +673,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Одна UNWIND_INFO скопирована в .rdata, что считается допустимым placement.",
       "project_stage_demonstrated": "Mitigation / false-positive control",
-      "defense_comment": "Показывает whitelisting ожидаемых секций.",
       "run_mode": "static --heuristics"
     },
     {
@@ -741,7 +685,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Большой нормальный PE с сотнями функций.",
       "project_stage_demonstrated": "Threshold baseline",
-      "defense_comment": "Нужен для честной проверки reuse/dominance порогов.",
       "run_mode": "static --heuristics"
     },
     {
@@ -754,7 +697,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Часть функций использует один UnwindInfoRVA, плюс есть контекстный table signal.",
       "project_stage_demonstrated": "Statistical heuristic",
-      "defense_comment": "Показывает moderate reuse, который требует подтверждения.",
       "run_mode": "static --heuristics"
     },
     {
@@ -767,7 +709,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Большая доля функций использует один UnwindInfoRVA.",
       "project_stage_demonstrated": "Statistical heuristic",
-      "defense_comment": "Показывает сильный reuse-паттерн.",
       "run_mode": "static --heuristics"
     },
     {
@@ -778,9 +719,8 @@
       "path": "бинарники/static/60_static_handler_dominance_nonexec.exe",
       "primary_expected_findings": "handler_dominance + handler_nonexec_section",
       "secondary_expected_findings": "",
-      "what_is_broken": "Много функций ссылаются на один non-exec handler.",
+      "what_is_broken": "В добавленной .xdata2 создано много валидных UNWIND_INFO, все ссылаются на один non-exec handler.",
       "project_stage_demonstrated": "Statistical heuristic",
-      "defense_comment": "Показывает dominance handler target.",
       "run_mode": "static --heuristics"
     },
     {
@@ -791,9 +731,8 @@
       "path": "бинарники/static/61_static_handler_dominance_contextual.exe",
       "primary_expected_findings": "handler_dominance + unwind_rva_oob",
       "secondary_expected_findings": "",
-      "what_is_broken": "Много функций ссылаются на один code handler, плюс добавлен context signal.",
+      "what_is_broken": "Много валидных UNWIND_INFO ссылаются на один code handler; отдельно добавлен context signal через UnwindInfoRVA OOB.",
       "project_stage_demonstrated": "Statistical heuristic",
-      "defense_comment": "Показывает, почему dominance оценивается осторожно.",
       "run_mode": "static --heuristics"
     },
     {
@@ -806,7 +745,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Похожее на xdata имя без реального нарушения.",
       "project_stage_demonstrated": "Mitigation",
-      "defense_comment": "Файл для объяснения, что эвристика не должна быть грубой.",
       "run_mode": "static --heuristics"
     },
     {
@@ -819,7 +757,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Смешаны OOB unwind, writable/executable metadata, handler placement и duplicate begin.",
       "project_stage_demonstrated": "Final static demo",
-      "defense_comment": "Файл для финального показа сильного статического кейса.",
       "run_mode": "static --heuristics"
     },
     {
@@ -832,7 +769,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Программа запускается и ничего exception-related не регистрирует.",
       "project_stage_demonstrated": "Dynamic negative control",
-      "defense_comment": "Показывает baseline для динамического режима.",
       "run_mode": "dynamic --timeout-ms"
     },
     {
@@ -845,7 +781,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Программа засыпает на 60 секунд.",
       "project_stage_demonstrated": "Dynamic timeout",
-      "defense_comment": "Показывает обработку timeout.",
       "run_mode": "dynamic --timeout-ms 1000"
     },
     {
@@ -858,7 +793,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Два VEH, первый пропускает, второй обрабатывает исключение.",
       "project_stage_demonstrated": "Dynamic validation",
-      "defense_comment": "Проверяет множественные VEH.",
       "run_mode": "dynamic --timeout-ms"
     },
     {
@@ -871,7 +805,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "VEH регистрируется и удаляется без исключения.",
       "project_stage_demonstrated": "Dynamic validation",
-      "defense_comment": "Отделяет факт регистрации от факта hit.",
       "run_mode": "dynamic --timeout-ms"
     },
     {
@@ -884,7 +817,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Один сэмпл вызывает несколько dynamic-сигналов.",
       "project_stage_demonstrated": "Dynamic validation",
-      "defense_comment": "Компактный runtime smoke для презентации.",
       "run_mode": "dynamic --timeout-ms"
     },
     {
@@ -897,7 +829,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "VEH-сэмпл с writable .xdata.",
       "project_stage_demonstrated": "Mixed validation",
-      "defense_comment": "Связка static placement + dynamic VEH.",
       "run_mode": "static + Windows dynamic"
     },
     {
@@ -910,7 +841,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "VEH-сэмпл с executable .xdata.",
       "project_stage_demonstrated": "Mixed validation",
-      "defense_comment": "Связка executable metadata + runtime VEH.",
       "run_mode": "static + Windows dynamic"
     },
     {
@@ -923,7 +853,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "VCH-сэмпл с переименованной .xdata в .meta.",
       "project_stage_demonstrated": "Mixed validation",
-      "defense_comment": "Связка unusual placement + VCH.",
       "run_mode": "static + Windows dynamic"
     },
     {
@@ -936,7 +865,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "UEF-сэмпл с EHANDLER, указывающим в non-exec область.",
       "project_stage_demonstrated": "Mixed validation",
-      "defense_comment": "Связка handler placement + UEF.",
       "run_mode": "static + Windows dynamic"
     },
     {
@@ -949,7 +877,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "RTL function table sample с поврежденным UnwindInfoRVA.",
       "project_stage_demonstrated": "Mixed validation",
-      "defense_comment": "Связка static table damage + runtime ftable API.",
       "run_mode": "static + Windows dynamic"
     },
     {
@@ -962,7 +889,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "RTL sample с пересечением RUNTIME_FUNCTION ranges.",
       "project_stage_demonstrated": "Mixed validation",
-      "defense_comment": "Связка table overlap + runtime ftable API.",
       "run_mode": "static + Windows dynamic"
     },
     {
@@ -975,7 +901,6 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Обычная dynamic-capable программа без static EH/unwind аномалии.",
       "project_stage_demonstrated": "Mixed negative control",
-      "defense_comment": "Показывает, что mixed-категория не означает автоматическую тревогу.",
       "run_mode": "static + optional Windows dynamic"
     },
     {
@@ -988,12 +913,7 @@
       "secondary_expected_findings": "",
       "what_is_broken": "UnwindInfoRVA перенесен к концу .xdata: заголовок читается, но CountOfCodes требует два UNWIND_CODE slot, а до границы секции доступен только один.",
       "project_stage_demonstrated": "UNWIND_INFO boundary diagnostics",
-      "defense_comment": "Показывает, что отчет называет поле CountOfCodes / UNWIND_CODE array, file offset, expected/available size и доступные байты.",
-      "run_mode": "static --heuristics",
-      "actual_findings_last_run": "unwind_parse_fail",
-      "last_score": "25",
-      "last_verdict": "low_suspicion",
-      "last_exit_code": "0"
+      "run_mode": "static --heuristics"
     },
     {
       "binary": "77_static_diag_uwop_slots_beyond_count.exe",
@@ -1005,12 +925,7 @@
       "secondary_expected_findings": "",
       "what_is_broken": "В первый UNWIND_INFO записан UWOP_ALLOC_LARGE opinfo=1, который занимает три slot-а, но CountOfCodes равен одному.",
       "project_stage_demonstrated": "UNWIND_CODE operand-slot accounting",
-      "defense_comment": "Показывает защиту от ошибки 'один UWOP = один slot': отчет объясняет, что операция требует больше slots, чем объявлено.",
-      "run_mode": "static --heuristics",
-      "actual_findings_last_run": "unwind_parse_fail",
-      "last_score": "25",
-      "last_verdict": "low_suspicion",
-      "last_exit_code": "0"
+      "run_mode": "static --heuristics"
     },
     {
       "binary": "78_static_diag_chain_loop_path.exe",
@@ -1022,12 +937,7 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Две UNWIND_INFO структуры с UNW_FLAG_CHAININFO указывают друг на друга, образуя цикл в chain path.",
       "project_stage_demonstrated": "CHAININFO loop diagnostics",
-      "defense_comment": "Показывает, что отчет выводит не только факт цикла, но и цепочку UnwindInfoRVA, по которой анализатор пришел к выводу.",
-      "run_mode": "static --heuristics",
-      "actual_findings_last_run": "unwind_anomalies",
-      "last_score": "20",
-      "last_verdict": "low_suspicion",
-      "last_exit_code": "0"
+      "run_mode": "static --heuristics"
     },
     {
       "binary": "79_static_unsupported_arm64_machine.exe",
@@ -1039,12 +949,7 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Поле COFF Machine изменено с IMAGE_FILE_MACHINE_AMD64 (0x8664) на IMAGE_FILE_MACHINE_ARM64 (0xAA64); остальные байты baseline сохранены.",
       "project_stage_demonstrated": "PE architecture validation",
-      "defense_comment": "Подтверждает, что анализатор не применяет AMD64 EH/Unwind-модель к неподдерживаемой архитектуре и прекращает обработку до RUNTIME_FUNCTION, UNWIND_INFO и эвристик.",
-      "run_mode": "static input validation",
-      "actual_findings_last_run": "machine_amd64",
-      "last_score": "",
-      "last_verdict": "not_analyzed",
-      "last_exit_code": "1"
+      "run_mode": "static input validation"
     },
     {
       "binary": "80_static_input_invalid_mz.exe",
@@ -1056,12 +961,7 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Первые два байта DOS-заголовка заменены с MZ на ZZ; остальные байты baseline сохранены.",
       "project_stage_demonstrated": "DOS header validation",
-      "defense_comment": "Проверяется локализация недопустимой сигнатуры MZ с сохранением результатов остальных независимо выполнимых входных проверок.",
-      "run_mode": "static input validation",
-      "actual_findings_last_run": "dos_magic",
-      "last_score": "",
-      "last_verdict": "not_analyzed",
-      "last_exit_code": "1"
+      "run_mode": "static input validation"
     },
     {
       "binary": "81_static_input_e_lfanew_oob.exe",
@@ -1073,12 +973,7 @@
       "secondary_expected_findings": "dependent checks not evaluated",
       "what_is_broken": "Поле e_lfanew содержит 0xFFFFFFF0 и не разрешается в доступный диапазон PE-заголовка.",
       "project_stage_demonstrated": "PE header coordinate validation",
-      "defense_comment": "Проверяется безопасная остановка зависимых проверок без чтения за границами Buf.",
-      "run_mode": "static input validation",
-      "actual_findings_last_run": "pe_header_range",
-      "last_score": "",
-      "last_verdict": "not_analyzed",
-      "last_exit_code": "1"
+      "run_mode": "static input validation"
     },
     {
       "binary": "82_static_input_invalid_pe_signature.exe",
@@ -1090,12 +985,7 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Четыре байта PE signature заменены с PE\\0\\0 на PX\\0\\0; COFF и Optional Header остаются доступными.",
       "project_stage_demonstrated": "PE signature validation",
-      "defense_comment": "Проверяется отдельная фиксация недопустимой PE signature без потери независимо доступных результатов.",
-      "run_mode": "static input validation",
-      "actual_findings_last_run": "pe_signature",
-      "last_score": "",
-      "last_verdict": "not_analyzed",
-      "last_exit_code": "1"
+      "run_mode": "static input validation"
     },
     {
       "binary": "83_static_input_pe32_magic.exe",
@@ -1107,12 +997,7 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Optional Header Magic изменен с PE32+ 0x20B на PE32 0x10B.",
       "project_stage_demonstrated": "PE32+ format validation",
-      "defense_comment": "Проверяется отказ от интерпретации PE32-заголовка по модели PE32+ AMD64.",
-      "run_mode": "static input validation",
-      "actual_findings_last_run": "optional_magic_pe32_plus",
-      "last_score": "",
-      "last_verdict": "not_analyzed",
-      "last_exit_code": "1"
+      "run_mode": "static input validation"
     },
     {
       "binary": "84_static_input_combined_header_failures.exe",
@@ -1124,12 +1009,7 @@
       "secondary_expected_findings": "",
       "what_is_broken": "Одновременно установлены PX\\0\\0, Machine 0x014C и Optional Header Magic 0x10B; смещения заголовков остаются доступными.",
       "project_stage_demonstrated": "Combined PE input validation",
-      "defense_comment": "Проверяется накопление нескольких независимых нарушений в одном отчете без построения PeImage и эвристической оценки.",
-      "run_mode": "static input validation",
-      "actual_findings_last_run": "pe_signature; machine_amd64; optional_magic_pe32_plus",
-      "last_score": "",
-      "last_verdict": "not_analyzed",
-      "last_exit_code": "1"
+      "run_mode": "static input validation"
     }
   ]
 }

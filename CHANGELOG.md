@@ -1,14 +1,23 @@
 # Changelog
 
+## Unreleased
+
+- Full-report schema is now `1.3.0`; invalid inputs have a separate
+  input-validation report schema.
+- Added input-validation and report-quality regression checks.
+- Repaired Windows CI toolchain/Python selection and UEF smoke validation.
+- Removed study materials, duplicated corpus descriptions and historical
+  local release evidence from the source distribution.
+- Added static report validation for the 84-file corpus to Ubuntu Release CI.
+
 ## 1.0.0 - 2026-06-19
 
 ### Changed
 
 - Promoted the validated Windows release line from `1.0.0-rc2` to stable
   `1.0.0`.
-- Added final Windows x64 investor-readiness evidence for MSVC, MinGW-w64,
-  static corpus, dynamic smoke, full dynamic corpus, report validation and
-  release packaging.
+- Recorded Windows validation for that release revision. Current verification
+  results are attached to individual commits in GitHub Actions.
 
 ### Fixed
 

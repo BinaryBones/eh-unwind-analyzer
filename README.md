@@ -72,8 +72,9 @@ Outputs can be combined in one run:
 | `--csv functions.csv` | Flat function/unwind table |
 | `--ghidra-csv ghidra.csv` | Function ranges and comments for the bundled Ghidra importer |
 
-JSON reports follow
-[`docs/report.schema.json`](docs/report.schema.json). Regression and Windows
+Full JSON reports follow
+[`docs/report.schema.json`](docs/report.schema.json). Inputs rejected before
+unwind analysis use [`docs/input-validation-report.schema.json`](docs/input-validation-report.schema.json). Regression and Windows
 smoke tests additionally verify cross-field semantic invariants such as
 function sizes, counters and final-assessment consistency. Target arguments
 after `--` are redacted from report metadata.
@@ -228,7 +229,9 @@ JSON Schema and semantic report validation, dynamic-report validator tests and
 120 deterministic parser mutations. It also checks release metadata and
 repository hygiene. CI additionally builds with MSVC and MinGW, runs four
 Windows dynamic smoke scenarios, generates coverage artifacts and executes a
-bounded Clang libFuzzer campaign.
+bounded Clang libFuzzer campaign. Ubuntu Release also validates static reports
+for all 84 extended fixtures; see the
+[corpus guide](бинарники%20на%20тестирование/README_БИНАРНИКИ_НА_ТЕСТИРОВАНИЕ.md).
 
 ## Project Layout
 
@@ -237,7 +240,7 @@ bounded Clang libFuzzer campaign.
 - `tests/samples/`: reproducible PE32+ regression corpus;
 - `tests/fuzz/`: libFuzzer entry point;
 - `бинарники на тестирование/`: 84 additional synthetic PE fixtures,
-  their source fragments, manifest and expected-behavior descriptions;
+  their source fragments, manifest and coverage matrix;
 - `ghidra/`: conservative CSV importer;
 - `docs/`: architecture, evidence model, schema and Windows validation;
 - `.github/workflows/ci.yml`: release, sanitizer, coverage, Windows and fuzz

@@ -31,18 +31,18 @@ The additional 84-file synthetic corpus is described in
 `бинарники на тестирование/manifest_extended.json`. It includes malformed inputs
 that must be rejected cleanly as well as Windows dynamic scenarios. Third-party
 real-world samples are optional local inputs and are not redistributed.
+Ubuntu Release CI validates reports for all 84 synthetic inputs in addition
+to CTest. See the [corpus guide](../бинарники%20на%20тестирование/README_БИНАРНИКИ_НА_ТЕСТИРОВАНИЕ.md).
 
 ## Packaging
 
 `python3 scripts/create_release_bundles.py` creates a source ZIP.
 `cpack --preset release` packages the executable built on the current platform.
 
-The manifest in `release/VERIFIED_WINDOWS_BUILD.json` and its linked release
-status document describe the historical June 19, 2026 build using schema `1.1.0`.
-They are not evidence for the current `1.3.0` schema. The packaging script
-therefore skips the historical Windows/evidence bundles; `--require-windows`
-fails until a newly verified executable and matching manifest are supplied.
-See `docs/DELIVERY_RU.md` for the delivery procedure.
+A source checkout does not include an old verified-build manifest or historical
+local test results. Optional Windows/evidence bundles require a newly verified
+executable and matching manifest; `--require-windows` fails when these are absent.
+See [release packaging](DELIVERY_RU.md) for the procedure.
 
 ## Known Boundaries
 

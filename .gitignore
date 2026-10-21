@@ -81,6 +81,11 @@ CMakeUserPresets.json
 /бинарники на тестирование/*.docx
 /бинарники на тестирование/*.pdf
 
+# Obsolete local release evidence and duplicated defense handouts.
+/release/VERIFIED_WINDOWS_BUILD.json
+/release/RELEASE_STATUS*.md
+/бинарники на тестирование/описания/
+
 # Personal study and defense materials do not belong in the code repository.
 /обучение и анализ проекта/
 /book_source/

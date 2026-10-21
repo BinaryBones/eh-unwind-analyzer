@@ -41,6 +41,11 @@ jobs:
         run: cmake --build --preset "${{ matrix.preset }}" --parallel
       - name: Test
         run: ctest --preset "${{ matrix.preset }}"
+      - name: Validate extended synthetic corpus
+        if: matrix.preset == 'release' && matrix.os == 'ubuntu-24.04'
+        run: >
+          python tests/generate_static_report_corpus.py
+          build/release/eh_unwind_analyzer --output-root build/corpus-reports
       - name: Generate coverage report
         if: matrix.preset == 'coverage'
         run: >

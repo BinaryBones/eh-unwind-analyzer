@@ -19,7 +19,7 @@ cd ..
 MinGW-w64:
 
 ```bat
-cmake -S . -B build\mingw -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
+cmake -S . -B build\mingw -G Ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
 cmake --build build\mingw --parallel
 ctest --test-dir build\mingw --output-on-failure
 cd tests
@@ -92,10 +92,8 @@ runs all four scenarios and uploads their JSON reports and console logs.
 Check the workflow run for the commit being delivered. Local smoke results
 are written under `tests/` and are excluded from Git.
 
-Older June 2026 corpus summaries describe earlier revisions. Their report
-files are not distributed with this source repository and do not validate the
-current build. To validate a separately retained corpus, provide its directory
-and the schema that was used to create it explicitly:
+To validate reports from a separate corpus run, provide their directory and
+the matching report schema explicitly:
 
 ```sh
 python3 tests/validate_dynamic_corpus_evidence.py \

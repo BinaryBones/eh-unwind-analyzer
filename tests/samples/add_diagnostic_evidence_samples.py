@@ -11,10 +11,8 @@ THIS_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = THIS_DIR.parents[1]
 PACK_ROOT = PROJECT_ROOT / "бинарники на тестирование"
 STATIC_BIN = PACK_ROOT / "бинарники" / "static"
-DESCRIPTIONS_DIR = PACK_ROOT / "описания"
 MATRIX_CSV = PACK_ROOT / "матрица_покрытия_бинарников.csv"
 MANIFEST_JSON = PACK_ROOT / "manifest_extended.json"
-README_MD = PACK_ROOT / "README_БИНАРНИКИ_НА_ТЕСТИРОВАНИЕ.md"
 
 BASE = STATIC_BIN / "02_benign_richer.exe"
 
@@ -155,10 +153,6 @@ SAMPLES = [
             "но CountOfCodes требует два UNWIND_CODE slot, а до границы секции доступен только один."
         ),
         "project_stage_demonstrated": "UNWIND_INFO boundary diagnostics",
-        "defense_comment": (
-            "Показывает, что отчет называет поле CountOfCodes / UNWIND_CODE array, "
-            "file offset, expected/available size и доступные байты."
-        ),
     },
     {
         "binary": "77_static_diag_uwop_slots_beyond_count.exe",
@@ -171,10 +165,6 @@ SAMPLES = [
             "который занимает три slot-а, но CountOfCodes равен одному."
         ),
         "project_stage_demonstrated": "UNWIND_CODE operand-slot accounting",
-        "defense_comment": (
-            "Показывает защиту от ошибки 'один UWOP = один slot': отчет объясняет, "
-            "что операция требует больше slots, чем объявлено."
-        ),
     },
     {
         "binary": "78_static_diag_chain_loop_path.exe",
@@ -187,10 +177,6 @@ SAMPLES = [
             "образуя цикл в chain path."
         ),
         "project_stage_demonstrated": "CHAININFO loop diagnostics",
-        "defense_comment": (
-            "Показывает, что отчет выводит не только факт цикла, но и цепочку UnwindInfoRVA, "
-            "по которой анализатор пришел к выводу."
-        ),
     },
 ]
 
@@ -216,12 +202,7 @@ def sample_row(sample: dict) -> dict:
         "secondary_expected_findings": "",
         "what_is_broken": sample["what_is_broken"],
         "project_stage_demonstrated": sample["project_stage_demonstrated"],
-        "defense_comment": sample["defense_comment"],
         "run_mode": "static --heuristics",
-        "actual_findings_last_run": "",
-        "last_score": "",
-        "last_verdict": "",
-        "last_exit_code": "",
     }
 
 
@@ -259,57 +240,10 @@ def update_matrix() -> None:
         writer.writerows(rows)
 
 
-def update_readme() -> None:
-    text = README_MD.read_text(encoding="utf-8")
-    text = text.replace("Всего файлов в матрице: 75.", "Всего файлов в матрице: 78.")
-    for sample in SAMPLES:
-        row = (
-            f"| `{sample['binary']}` | static | {sample['primary_expected_findings']} | "
-            f"{sample['what_is_broken']} |"
-        )
-        if sample["binary"] not in text:
-            text = text.rstrip() + "\n" + row + "\n"
-    README_MD.write_text(text, encoding="utf-8")
-
-
-def write_descriptions() -> None:
-    DESCRIPTIONS_DIR.mkdir(parents=True, exist_ok=True)
-    for sample in SAMPLES:
-        number = sample["binary"].split("_", 1)[0]
-        path = DESCRIPTIONS_DIR / f"{number}_{sample['binary'][3:-4]}.txt"
-        text = f"""{sample['binary']}
-
-Категория: static
-Путь: бинарники/static/{sample['binary']}
-Режим проверки: static --heuristics
-
-Что специально сделано с бинарником:
-{sample['what_is_broken']}
-
-Какой этап проекта демонстрирует:
-{sample['project_stage_demonstrated']}
-
-Какие признаки/сигналы ожидались:
-{sample['primary_expected_findings']}
-
-Что фактически поймал последний статический прогон:
-Будет заполнено после запуска анализатора.
-
-Score / verdict последнего статического прогона:
-Будет заполнено после запуска анализатора.
-
-Как объяснять на защите:
-{sample['defense_comment']}
-"""
-        path.write_text(text, encoding="utf-8")
-
-
 def main() -> int:
     build_samples()
     update_manifest()
     update_matrix()
-    update_readme()
-    write_descriptions()
     print("[OK] added diagnostic evidence samples 76-78")
     return 0
 

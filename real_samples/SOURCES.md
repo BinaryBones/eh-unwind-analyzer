@@ -1,8 +1,14 @@
-# Real-World PE Corpus
+# Optional real-world PE corpus
 
-Downloaded on 2026-06-07 from official project sources. These files are used
-only for local static compatibility testing and must not be redistributed in a
-source or release archive.
+Third-party executables are local inputs for compatibility tests. They are
+not included in this repository or in source/release archives. Download only
+from official sources and follow each project's redistribution terms.
+
+## Historical source inventory
+
+The following inventory records archives used for a June 2026 local run.
+It does not assert results for the current analyzer. Upstream downloads can
+change; these hashes identify the archived inputs, not future downloads.
 
 | Source | Download | SHA-256 |
 |---|---|---|
@@ -12,25 +18,15 @@ source or release archive.
 | jq 1.8.1 Windows AMD64 | `https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-windows-amd64.exe` | `23cb60a1354eed6bcc8d9b9735e8c7b388cd1fdcb75726b93bc299ef22dd9334` |
 | 7-Zip 26.01 x64 installer | `https://www.7-zip.org/a/7z2601-x64.exe` | `d64a0468f5b5b0b0fc5b2188450bcd655b70809d97b1c4535f2884635094377d` |
 
-The selected inbox contains only files identified by the host `file` utility
-as PE32+ x86-64. No downloaded executable is launched on macOS.
+## Run a current check
 
-## Validation Result
-
-- Selected files: 106 (140.4 MiB).
-- Runtime functions parsed: 174,795.
-- Valid schema and semantic reports: 106/106.
-- Crashes, timeouts and invalid reports: 0.
-- UNWIND parse failures and structural anomalies: 0.
-- Non-zero heuristic scores on this benign corpus: 0.
-
-Generated reports are intentionally not stored in the release workspace
-because they add roughly 95 MiB and are fully reproducible:
+Place the selected PE32+ AMD64 files in `real_samples/inbox/`, then run:
 
 ```sh
-python3 tests/run_real_corpus.py \
-  build/release/eh_unwind_analyzer real_samples/inbox /tmp/ehua-real-reports
+python tests/run_real_corpus.py build/release/eh_unwind_analyzer real_samples/inbox real_samples/reports
 ```
 
-The June Windows evidence, including its machine-readable summary, is retained
-separately in `reports/dynamic_validation_2026-06-08/`.
+On Windows, append `.exe` to the analyzer path. This runner performs static
+analysis without executing the input files and validates report schemas and
+semantic invariants. Inspect the new summary for the build being tested.
+Downloaded files and generated reports are excluded from Git.

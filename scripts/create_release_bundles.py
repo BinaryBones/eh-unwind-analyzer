@@ -61,6 +61,7 @@ CUSTOMER_FILES = (
     "docs/PRODUCT_READINESS.md",
     "docs/evidence_matrix.md",
     "docs/report.schema.json",
+    "docs/input-validation-report.schema.json",
     "docs/threshold_calibration.md",
     "docs/windows_dynamic_validation.md",
     "examples/sample_cmds.txt",
@@ -71,6 +72,7 @@ CUSTOMER_DIRS: tuple[str, ...] = ()
 EVIDENCE_SUPPORT_FILES = (
     "release/VERIFIED_WINDOWS_BUILD.json",
     "docs/report.schema.json",
+    "docs/input-validation-report.schema.json",
     "requirements-validation.txt",
     "tests/report_semantics.py",
     "tests/run_dynamic_corpus.py",
@@ -154,7 +156,7 @@ def manifest_path(manifest: dict[str, object], key: str) -> Path:
 
 
 def release_status_path(manifest: dict[str, object]) -> Path:
-    value = manifest.get("release_status", "release/RELEASE_STATUS_1.0.0_RU.md")
+    value = manifest.get("release_status")
     if not isinstance(value, str) or not value:
         raise RuntimeError("invalid release_status in release manifest")
     path = (ROOT / value).resolve()
@@ -235,7 +237,7 @@ def main() -> int:
 
     version = product_version()
     schema_version = report_schema_version()
-    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8")) if MANIFEST.is_file() else {}
     windows_exe = args.windows_exe.resolve()
     windows_verified = (
         manifest.get("product_version") == version

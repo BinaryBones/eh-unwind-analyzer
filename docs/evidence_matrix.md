@@ -1,7 +1,7 @@
 # Evidence matrix for heuristic anomaly assessment
 
 This document freezes the **engineering evidence matrix** used by the current heuristic anomaly assessment implementation.  
-The goal is not to claim mathematical optimality, but to make the heuristic logic **explicit, reviewable and stable** for reverse-engineering work and for the thesis.
+The goal is not to claim mathematical optimality, but to make the heuristic logic **explicit, reviewable and stable** for analysis and maintenance.
 
 ## 1. Core concepts
 

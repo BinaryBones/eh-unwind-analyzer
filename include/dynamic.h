@@ -2,15 +2,8 @@
 /*
   dynamic.h - Windows-only dynamic evidence collector (Debug API)
 
-  Defensive intent:
-    Collect runtime evidence of exception-handling redirection (e.g., to an
-    interceptor or VM dispatcher) by observing:
-      - hits of handlers referenced from UNWIND_INFO (x64)
-      - registration/hits of vectored/unhandled exception handlers
-      - registration of dynamic function tables
-      - first-chance vs second-chance exception flow
-
-  This module does NOT attempt to "break" protections or recover hidden data.
+  Records UNWIND_INFO handler hits, VEH/VCH/UEF registrations and hits,
+  dynamic function-table registrations, and first/second-chance exceptions.
 */
 
 #include <stdint.h>

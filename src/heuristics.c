@@ -19,10 +19,8 @@
 /*
  * Heuristic calibration notes
  * ---------------------------
- * These constants intentionally form a conservative engineering model rather
- * than a mathematically validated classifier. The weights are grouped by the
- * evidence family discussed in the thesis so the rationale stays stable and
- * reviewable:
+ * Weights form a conservative engineering model, not a statistically
+ * calibrated classifier. They are grouped by evidence family:
  *   - table/unwind integrity violations => strongest static weights
  *   - placement anomalies => medium/high depending on prevalence
  *   - reuse/dominance patterns => moderate unless they are very strong

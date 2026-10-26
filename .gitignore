@@ -71,14 +71,14 @@ Desktop.ini
 !.env.example
 CMakeUserPresets.json
 
-# Historical validation outputs stay available locally.
+# Local analysis reports.
 /reports/
 
-# Obsolete local release evidence and duplicated defense handouts.
+# Local release verification metadata.
 /release/VERIFIED_WINDOWS_BUILD.json
 /release/RELEASE_STATUS*.md
 
-# Personal study and defense materials do not belong in the code repository.
+# Local documentation sources and generated handouts.
 /обучение и анализ проекта/
 /book_source/
 /docs/ru/
@@ -90,5 +90,5 @@ CMakeUserPresets.json
 /scripts/generate_my_repetition_book.py
 /scripts/generate_ru_theory_second_edition.py
 
-# Former local corpus/report directory; published fixtures live under tests/.
+# Local corpus and reports; versioned fixtures live under tests/fixtures/pe/.
 /бинарники на тестирование/

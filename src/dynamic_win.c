@@ -241,9 +241,7 @@ static bool bp_add_and_arm(BpList* bl, HANDLE hProcess, uint64_t addr, BpKind ki
 }
 
 /* -------------------------------------------------------------------------- */
-/* Self-check helpers: log where breakpoints were actually placed in the target.
-   Goal: make it obvious whether a requested breakpoint is (a) placed, (b) placed in the
-   expected module, and (c) armed in memory (0xCC). */
+/* Log each breakpoint's target address, module and installed INT3 byte (0xCC). */
 
 static const char* bp_kind_name(BpKind k); /* forward */
 static void dr_append(DynamicReport* dr, const char* fmt, ...); /* forward */
@@ -275,8 +273,7 @@ static void format_bp_location(const ModList* mods, uint64_t addr, char* out, si
     }
 }
 
-/* Place a breakpoint and emit a deterministic self-check line in dr->details.
-   To reduce log spam, this logs only on the first attempt to create the bp at addr. */
+/* Log the self-check in dr->details only on the first placement attempt per address. */
 static bool bp_add_and_arm_selfcheck(BpList* bl,
                                     HANDLE hProcess,
                                     const ModList* mods,
@@ -698,8 +695,8 @@ bool dynamic_collect_windows(const char* pe_path,
     /*
      * Do not use CREATE_SUSPENDED.
      *
-     * We want the standard Windows Debug API event stream to start
-     * immediately after CreateProcess. On some configurations,
+     * The Windows Debug API event stream must start immediately after
+     * CreateProcess. On some configurations,
      * creating the debuggee suspended can result in no debug events
      * being delivered (no CREATE_PROCESS_DEBUG_EVENT), which causes
      * a deadlock (the tool waits forever, never resumes the thread).
@@ -812,7 +809,7 @@ bool dynamic_collect_windows(const char* pe_path,
             CloseHandle(ev.u.CreateProcessInfo.hFile);
         }
         else if (ev.dwDebugEventCode == LOAD_DLL_DEBUG_EVENT) {
-            /* keep module list updated so we can set API breakpoints */
+            /* Refresh the module list before setting API breakpoints. */
             (void)mods_refresh_accounted(&mods, pid, out);
             add_api_bps_if_ready(&bps, hProcess, &mods, out, err);
             if (ev.u.LoadDll.hFile) CloseHandle(ev.u.LoadDll.hFile);
